@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      dobble:
+        specifier: ^1.1.2
+        version: 1.1.2
       next:
         specifier: 14.2.3
         version: 14.2.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -399,6 +402,9 @@ packages:
   dir-glob@3.0.1:
     resolution: {integrity: sha512-WkrWp9GR4KXfKGYzOLmTuGVi1UWFfws377n9cc55/tb6DuqyF6pcQ5AbiHEshaDpY9v6oaSr2XCDidGmMwdzIA==}
     engines: {node: '>=8'}
+
+  dobble@1.1.2:
+    resolution: {integrity: sha512-9oJbFoiSd1k/DHoJIVc22xwE/cMeGmHpx2Nb0uTQEF1cQNONwN48DU96dc+0eg7t5oFwh4lwtSmjm6YK6saq7w==}
 
   doctrine@2.1.0:
     resolution: {integrity: sha512-35mSku4ZXK0vfCuHEDAwt55dg2jNajHZ1odvF+8SSr82EsZY4QmXfuWso8oEd8zRhVObSN18aM0CjSdoBX7zIw==}
@@ -1690,6 +1696,8 @@ snapshots:
   dir-glob@3.0.1:
     dependencies:
       path-type: 4.0.0
+
+  dobble@1.1.2: {}
 
   doctrine@2.1.0:
     dependencies:
