@@ -13,6 +13,7 @@ body {
 body {
 	color: white;
 	background: black;
+	font-family: sans-serif;
 }
 
 a {
@@ -41,18 +42,37 @@ li {
 	width: 250px;
 	position: relative;
 	transform: rotate(var(--card-rotation));
+	animation: spin 40s linear infinite;
 }
 
-.emoji-container {
+.symbol-image-container {
 	position: absolute;
 	left: 50%;
 	transform-origin: bottom;
 	transform: translate(-50%, -50%) rotate(var(--offset-angle));
+
+	button {
+		appearance: none;
+		border: none;
+		background: none;
+		cursor: pointer;
+		margin-bottom: 36px;
+	}
 }
 
-.emoji {
-	width: 4em;
+.symbol-image {
+	width: 4.5em;
 	aspect-ratio: 1 / 1;
 	transform: rotate(var(--image-rotation)) scale(var(--image-scale));
-	margin-bottom: 36px;
+	margin-bottom: 40px;
+	border-radius: 50%;
+}
+
+@keyframes spin {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
 }
