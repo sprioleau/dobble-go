@@ -1,13 +1,13 @@
 import { generate, getTotalSymbolCount } from "dobble";
 
 export default function generateDobble({
-	numberOfSymbols,
+	symbolsPerCard,
 	shouldValidateResult = true,
 }: {
-	numberOfSymbols: number;
+	symbolsPerCard: number;
 	shouldValidateResult?: boolean;
 }) {
-	const deck = generate(numberOfSymbols, shouldValidateResult)
+	const deck = generate(symbolsPerCard, shouldValidateResult)
 		.sort(() => Math.random() - 0.5)
 		.reduce<Record<number, number[]>>((acc, card, index) => {
 			acc[index] = card;
@@ -16,6 +16,7 @@ export default function generateDobble({
 
 	return {
 		deck,
-		totalSymbolCount: getTotalSymbolCount(numberOfSymbols),
+		symbolsPerCard,
+		totalSymbolCount: getTotalSymbolCount(symbolsPerCard),
 	};
 }
