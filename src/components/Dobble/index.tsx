@@ -2,7 +2,8 @@
 "use client";
 
 import generateDobble from "@/utils/generateDobble";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import useSound from "use-sound";
 
 function getDuplicateItems(array: number[]) {
 	return array.filter((item, index) => array.indexOf(item) !== index);
@@ -18,7 +19,24 @@ type Props = {
 export default function Dobble({ dobble: { deck: initialDeck, symbolsPerCard } }: Props) {
 	const [deck, setDeck] = useState<ReturnType<typeof generateDobble>["deck"]>(initialDeck);
 	const [score, setScore] = useState(0);
+	const [isGameMusicPlaying, setIsGameMusicPlaying] = useState(true);
+
+	// Sounds
+	const [playGameMusic, { stop: stopGameMusic, pause: pauseGameMusic }] = useSound("/sounds/game-music.mp3", {
+		volume: 0.5,
+	});
+	const [playCorrectSound] = useSound("/sounds/correct.mp3", { interrupt: true });
+	const [playIncorrectSound] = useSound("/sounds/incorrect.mp3", { interrupt: true });
+
 	const displayedCardIndeces = Object.keys(deck).map(Number).slice(0, 2);
+
+	useEffect(() => {
+		playGameMusic();
+
+		return () => {
+			stopGameMusic();
+		};
+	}, [playGameMusic, stopGameMusic]);
 
 	function restart() {
 		setDeck(generateDobble({ symbolsPerCard }).deck);
@@ -45,11 +63,14 @@ export default function Dobble({ dobble: { deck: initialDeck, symbolsPerCard } }
 		selectedCardIndex: number;
 		selectedImageIndex: number;
 	}) {
-		console.log("clicked");
-		if (selectedImageIndex !== correctImageIndex) return;
+		if (selectedImageIndex !== correctImageIndex) {
+			playIncorrectSound();
+			return;
+		}
 
 		// If past this point, the user has found a match
 		setScore((s) => s + 1);
+		playCorrectSound();
 
 		// Once match is found, get rid of the card that was clicked
 		setDeck((previousDeck) => {
@@ -58,9 +79,20 @@ export default function Dobble({ dobble: { deck: initialDeck, symbolsPerCard } }
 		});
 	}
 
+	function handleToggleGameMusic() {
+		if (isGameMusicPlaying) {
+			pauseGameMusic();
+			setIsGameMusicPlaying(false);
+		} else {
+			playGameMusic();
+			setIsGameMusicPlaying(true);
+		}
+	}
+
 	return (
 		<>
 			<p>Score: {score}</p>
+			<button onClick={handleToggleGameMusic}>{isGameMusicPlaying ? "Pause music" : "Play music"}</button>
 			<ul className="deck">
 				{displayedCardIndeces.map((cardIndex) => (
 					<li key={cardIndex}>
@@ -96,6 +128,7 @@ export default function Dobble({ dobble: { deck: initialDeck, symbolsPerCard } }
 											<img
 												src={`/images/stickers/Emoji_${String(imageIndex + 1).padStart(2, "0")}.svg`}
 												alt="emoji"
+												onDrag={(e) => e.preventDefault()}
 											/>
 										</button>
 									</li>

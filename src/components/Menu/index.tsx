@@ -2,13 +2,16 @@
 
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
+import useSound from "use-sound";
 
 export default function Menu() {
 	const dialogRef = useRef<HTMLDialogElement>(null);
 	const router = useRouter();
 	const [difficulty, setDifficulty] = useState("beginner");
+	const [playStartGameSound] = useSound("/sounds/start-game.mp3");
 
 	function handleStartGame() {
+		playStartGameSound();
 		router.push("/play");
 	}
 
