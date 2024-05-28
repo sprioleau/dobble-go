@@ -1,17 +1,12 @@
-import generateDobble from "@/utils/generateDobble";
 import styles from "./page.module.scss";
 
-import Dobble from "@/components/Dobble";
+import Menu from "@/components/Menu";
 
-const SYMBOLS_PER_CARD = 6;
-
-export default function Home() {
-	const dobble = generateDobble({ symbolsPerCard: SYMBOLS_PER_CARD });
-
+export default function HomePage() {
 	return (
 		<main className={styles.main}>
 			<h1>Dobble</h1>
-			<Dobble dobble={dobble} />
+			<Menu />
 		</main>
 	);
 }
