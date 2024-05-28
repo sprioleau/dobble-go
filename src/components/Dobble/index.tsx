@@ -8,22 +8,24 @@ function getDuplicateItems(array: number[]) {
 	return array.filter((item, index) => array.indexOf(item) !== index);
 }
 
-const SYMBOLS_PER_CARD = 6;
-
 const IMAGE_ANGLES = [-22, 54, 189, -120];
-const IMAGE_SCALES = [0.8, 0.9, 1, 1.2];
+const IMAGE_SCALES = [0.7, 0.85, 1, 1.1];
 
-export default function Dobble() {
-	const [deck, setDeck] = useState<ReturnType<typeof generateDobble>["deck"]>(
-		generateDobble({ numberOfSymbols: SYMBOLS_PER_CARD }).deck
-	);
+type Props = {
+	dobble: ReturnType<typeof generateDobble>;
+};
+
+export default function Dobble({ dobble: { deck: initialDeck, symbolsPerCard } }: Props) {
+	const [deck, setDeck] = useState<ReturnType<typeof generateDobble>["deck"]>(initialDeck);
 	const [score, setScore] = useState(0);
 	const displayedCardIndeces = Object.keys(deck).map(Number).slice(0, 2);
 
 	function restart() {
-		setDeck(generateDobble({ numberOfSymbols: SYMBOLS_PER_CARD }).deck);
+		setDeck(generateDobble({ symbolsPerCard }).deck);
 		setScore(0);
 	}
+
+	const remainingCards = Object.keys(deck).length - displayedCardIndeces.length;
 
 	if (displayedCardIndeces.length < 2) {
 		return (
@@ -74,17 +76,15 @@ export default function Dobble() {
 								return (
 									<li
 										key={imageIndex}
-										className="emoji-container"
+										className="symbol-image-container"
 										style={
 											{
-												"--offset-angle": rotationIndex * (360 / SYMBOLS_PER_CARD) + "deg",
+												"--offset-angle": rotationIndex * (360 / symbolsPerCard) + "deg",
 											} as React.CSSProperties
 										}
 									>
-										<img
-											className="emoji"
-											src={`/images/stickers/Emoji_${String(imageIndex + 1).padStart(2, "0")}.svg`}
-											alt="emoji"
+										<button
+											className="symbol-button"
 											onClick={() => handleClick({ selectedCardIndex: cardIndex, selectedImageIndex: imageIndex })}
 											style={
 												{
@@ -92,7 +92,12 @@ export default function Dobble() {
 													"--image-scale": `${IMAGE_SCALES[(imageIndex + 1) % IMAGE_SCALES.length]}`,
 												} as React.CSSProperties
 											}
-										/>
+										>
+											<img
+												src={`/images/stickers/Emoji_${String(imageIndex + 1).padStart(2, "0")}.svg`}
+												alt="emoji"
+											/>
+										</button>
 									</li>
 								);
 							})}
@@ -100,6 +105,7 @@ export default function Dobble() {
 					</li>
 				))}
 			</ul>
+			<p>Cards remaining: {remainingCards}</p>
 		</>
 	);
 }

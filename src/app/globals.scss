@@ -50,22 +50,28 @@ li {
 	left: 50%;
 	transform-origin: bottom;
 	transform: translate(-50%, -50%) rotate(var(--offset-angle));
-
-	button {
-		appearance: none;
-		border: none;
-		background: none;
-		cursor: pointer;
-		margin-bottom: 36px;
-	}
 }
 
-.symbol-image {
-	width: 4.5em;
+.symbol-button {
+	appearance: none;
+	border: none;
+	background: none;
+	cursor: pointer;
+	margin-bottom: 36px;
+	width: 5em;
 	aspect-ratio: 1 / 1;
 	transform: rotate(var(--image-rotation)) scale(var(--image-scale));
-	margin-bottom: 40px;
 	border-radius: 50%;
+
+	> img {
+		transition: transform 0.15s ease-out;
+	}
+
+	&:hover {
+		> img {
+			transform: scale(1.15);
+		}
+	}
 }
 
 @keyframes spin {
