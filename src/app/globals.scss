@@ -35,6 +35,20 @@ body {
 	color: white;
 	background: black;
 	font-family: sans-serif;
+	font-family: "Poppins", sans-serif;
+	font-weight: 400;
+}
+
+*,
+*:hover {
+	cursor: url("/images/cursor@1x.svg") 7 7, auto;
+	cursor: -webkit-image-set(url("/images/cursor@2x.svg") 2x) 7 7, auto;
+}
+
+h1,
+h2,
+h3 {
+	font-weight: 700;
 }
 
 a {
@@ -45,6 +59,17 @@ a {
 ul,
 li {
 	list-style: none;
+}
+
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	border: 0;
 }
 
 .deck {
