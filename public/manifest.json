@@ -1,0 +1,28 @@
+{
+	"background_color": "#F9D744",
+	"description": "Dobble Go - A shape recognition game for the web",
+	"display": "fullscreen",
+	"icons": [
+		{
+			"sizes": "512x512",
+			"src": "/images/logo_square.svg",
+			"type": "image/svg+xml",
+			"purpose": "any"
+		},
+		{
+			"sizes": "192x192",
+			"src": "/images/logo_192px.png",
+			"type": "image/png"
+		},
+		{
+			"sizes": "512x512",
+			"src": "/images/logo_512px.png",
+			"type": "image/png"
+		}
+	],
+	"id": "/",
+	"name": "Dobble Go - A shape recognition game for the web",
+	"short_name": "Dobble Go",
+	"start_url": "/",
+	"theme_color": "#F9D744"
+}
