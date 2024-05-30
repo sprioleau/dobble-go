@@ -1,0 +1,1 @@
+- [ ] Swap out `useSound` hook for one that gives access to `onComplete` option or allows looping
