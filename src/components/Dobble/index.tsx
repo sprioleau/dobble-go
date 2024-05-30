@@ -126,9 +126,9 @@ export default function Dobble({ dobble: { deck: initialDeck, symbolsPerCard } }
 											}
 										>
 											<img
-												src={`/images/stickers/Emoji_${String(imageIndex + 1).padStart(2, "0")}.svg`}
+												src={`/images/symbols/${imageIndex + 1}.svg`}
 												alt="emoji"
-												onDrag={(e) => e.preventDefault()}
+												draggable={false}
 											/>
 										</button>
 									</li>
