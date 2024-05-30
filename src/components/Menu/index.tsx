@@ -12,6 +12,7 @@ export default function Menu() {
 	const router = useRouter();
 	const [difficulty, setDifficulty] = useState("beginner");
 	const [playStartGameSound] = useSound("/sounds/start-game.mp3");
+	const [playMenuNavigateSound] = useSound("/sounds/menu-navigate.mp3");
 
 	function handleStartGame() {
 		playStartGameSound();
@@ -40,7 +41,10 @@ export default function Menu() {
 		<>
 			<nav>
 				<ul className={styles["menu-items"]}>
-					<li className={styles["menu-item"]}>
+					<li
+						className={styles["menu-item"]}
+						onMouseEnter={() => playMenuNavigateSound()}
+					>
 						<Link
 							onClick={handleStartGame}
 							autoFocus
@@ -49,10 +53,16 @@ export default function Menu() {
 							Start
 						</Link>
 					</li>
-					<li className={styles["menu-item"]}>
+					<li
+						className={styles["menu-item"]}
+						onMouseEnter={() => playMenuNavigateSound()}
+					>
 						<button onClick={handleOpenOptionsModal}>Options</button>
 					</li>
-					<li className={styles["menu-item"]}>
+					<li
+						className={styles["menu-item"]}
+						onMouseEnter={() => playMenuNavigateSound()}
+					>
 						<Link
 							onClick={handleStartGame}
 							autoFocus
