@@ -1,5 +1,8 @@
 "use client";
 
+import Link from "next/link";
+import styles from "./index.module.scss";
+
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 import useSound from "use-sound";
@@ -12,7 +15,6 @@ export default function Menu() {
 
 	function handleStartGame() {
 		playStartGameSound();
-		router.push("/play");
 	}
 
 	function handleOpenOptionsModal() {
@@ -36,14 +38,31 @@ export default function Menu() {
 
 	return (
 		<>
-			<ul>
-				<li>
-					<button onClick={handleStartGame}>Start game</button>
-				</li>
-				<li>
-					<button onClick={handleOpenOptionsModal}>Options</button>
-				</li>
-			</ul>
+			<nav>
+				<ul className={styles["menu-items"]}>
+					<li className={styles["menu-item"]}>
+						<Link
+							onClick={handleStartGame}
+							autoFocus
+							href={`/play?difficulty=${difficulty}`}
+						>
+							Start
+						</Link>
+					</li>
+					<li className={styles["menu-item"]}>
+						<button onClick={handleOpenOptionsModal}>Options</button>
+					</li>
+					<li className={styles["menu-item"]}>
+						<Link
+							onClick={handleStartGame}
+							autoFocus
+							href={`/leaderboard`}
+						>
+							Leaderboard
+						</Link>
+					</li>
+				</ul>
+			</nav>
 
 			<dialog ref={dialogRef}>
 				<button onClick={handleCloseOptionsModal}>&times;</button>

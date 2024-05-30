@@ -1,0 +1,66 @@
+.menu-items {
+	display: flex;
+	flex-direction: column;
+	gap: 0.25em;
+	font-size: 2.75em;
+	text-align: center;
+}
+
+.menu-item {
+	a,
+	button {
+		--opacity: 0;
+		--translateX: 0;
+		--translateY: -50%;
+		border: none;
+		outline: none;
+		background: none;
+		font-size: inherit;
+		cursor: pointer;
+		font-family: inherit;
+		color: var(--color-white);
+		-webkit-text-fill-color: var(--color-white);
+		-webkit-text-stroke-color: var(--color-black);
+		-webkit-text-stroke-width: 4px;
+		text-transform: uppercase;
+		letter-spacing: -0.05em;
+		position: relative;
+		cursor: inherit;
+
+		&::before,
+		&::after {
+			width: 100px;
+			aspect-ratio: 1 / 1;
+			position: absolute;
+			top: 50%;
+			transform: translate(var(--translateX), var(--translateY));
+			transition: transform 0.15s ease-out, opacity 0.15s ease-out;
+			opacity: var(--opacity);
+		}
+
+		&::before {
+			--translateX: calc(-1 * (100% + 0.75em));
+			content: url("/images/symbols/pizza-right.svg");
+			opacity: var(--opacity);
+		}
+
+		&::after {
+			--translateX: 0.35em;
+			content: url("/images/symbols/pizza-left.svg");
+			opacity: var(--opacity);
+		}
+
+		&:hover,
+		&:focus {
+			--opacity: 1;
+
+			&::before {
+				--translateX: calc(-1 * (100% + 0.5em));
+			}
+
+			&::after {
+				--translateX: 0.1em;
+			}
+		}
+	}
+}

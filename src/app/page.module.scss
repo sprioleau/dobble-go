@@ -6,4 +6,7 @@
 	gap: 2em;
 	padding: 6rem;
 	min-height: 100vh;
+	background-image: url("/images/backgrounds/yellow.svg");
+	background-color: var(--color-yellow);
+	background-blend-mode: multiply;
 }
