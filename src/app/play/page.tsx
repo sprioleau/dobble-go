@@ -1,5 +1,6 @@
 import styles from "./page.module.scss";
 
+import BackToMenuPageLink from "@/components/BackToMenuPageLink";
 import Dobble from "@/components/Dobble";
 import { GAME_OPTIONS } from "@/constants/gameOptions";
 import generateDobble from "@/utils/generateDobble";
@@ -23,6 +24,7 @@ export default function PlayPage({ searchParams }: Props) {
 			data-background="orange"
 		>
 			<Dobble dobble={dobble} />
+			<BackToMenuPageLink />
 		</main>
 	);
 }
