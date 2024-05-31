@@ -1,9 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
+import useSound from "@/hooks/useSound";
 import generateDobble from "@/utils/generateDobble";
 import { useEffect, useState } from "react";
-import useSound from "use-sound";
 
 function getDuplicateItems(array: number[]) {
 	return array.filter((item, index) => array.indexOf(item) !== index);
@@ -22,11 +22,18 @@ export default function Dobble({ dobble: { deck: initialDeck, symbolsPerCard } }
 	const [isGameMusicPlaying, setIsGameMusicPlaying] = useState(true);
 
 	// Sounds
-	const [playGameMusic, { stop: stopGameMusic, pause: pauseGameMusic }] = useSound("/sounds/game-music.mp3", {
-		volume: 0.5,
+	const {
+		play: playGameMusic,
+		stop: stopGameMusic,
+		pause: pauseGameMusic,
+	} = useSound("/sounds/game-music.mp3", {
+		autoplay: true,
+		initialVolume: 0.5,
+		loop: true,
 	});
-	const [playCorrectSound] = useSound("/sounds/correct.mp3", { interrupt: true });
-	const [playIncorrectSound] = useSound("/sounds/incorrect.mp3", { interrupt: true });
+
+	const { play: playCorrectSound } = useSound("/sounds/correct.mp3");
+	const { play: playIncorrectSound } = useSound("/sounds/incorrect.mp3");
 
 	const displayedCardIndeces = Object.keys(deck).map(Number).slice(0, 2);
 

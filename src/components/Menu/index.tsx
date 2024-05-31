@@ -3,9 +3,9 @@
 import Link from "next/link";
 import styles from "./index.module.scss";
 
+import useSound from "@/hooks/useSound";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import useSound from "use-sound";
 
 export default function Menu() {
 	const dialogRef = useRef<HTMLDialogElement>(null);
@@ -13,9 +13,9 @@ export default function Menu() {
 	const [difficulty, setDifficulty] = useState("beginner");
 
 	// Sounds
-	const [playStartGameSound] = useSound("/sounds/start-game.mp3");
-	const [playMenuNavigateSound] = useSound("/sounds/menu-navigate.mp3");
-	const [playMenuMusic, { stop: stopMenuMusic }] = useSound("/sounds/menu-music.mp3");
+	const { play: playStartGameSound } = useSound("/sounds/start-game.mp3");
+	const { play: playMenuNavigateSound } = useSound("/sounds/menu-navigate.mp3");
+	const { play: playMenuMusic, stop: stopMenuMusic } = useSound("/sounds/menu-music.mp3");
 
 	useEffect(() => {
 		playMenuMusic();
