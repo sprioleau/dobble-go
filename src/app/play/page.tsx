@@ -18,7 +18,10 @@ export default function PlayPage({ searchParams }: Props) {
 	const dobble = generateDobble({ symbolsPerCard });
 
 	return (
-		<main className={styles.main}>
+		<main
+			className={styles.main}
+			data-background="orange"
+		>
 			<Dobble dobble={dobble} />
 		</main>
 	);

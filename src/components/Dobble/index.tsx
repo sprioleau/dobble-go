@@ -19,19 +19,18 @@ type Props = {
 export default function Dobble({ dobble: { deck: initialDeck, symbolsPerCard } }: Props) {
 	const [deck, setDeck] = useState<ReturnType<typeof generateDobble>["deck"]>(initialDeck);
 	const [score, setScore] = useState(0);
-	const [isGameMusicPlaying, setIsGameMusicPlaying] = useState(true);
 
 	// Sounds
 	const {
 		play: playGameMusic,
 		stop: stopGameMusic,
-		pause: pauseGameMusic,
+		togglePlayPause: toggleGameMusic,
+		playing: isGameMusicPlaying,
 	} = useSound("/sounds/game-music.mp3", {
 		autoplay: true,
 		initialVolume: 0.5,
 		loop: true,
 	});
-
 	const { play: playCorrectSound } = useSound("/sounds/correct.mp3");
 	const { play: playIncorrectSound } = useSound("/sounds/incorrect.mp3");
 
@@ -86,20 +85,10 @@ export default function Dobble({ dobble: { deck: initialDeck, symbolsPerCard } }
 		});
 	}
 
-	function handleToggleGameMusic() {
-		if (isGameMusicPlaying) {
-			pauseGameMusic();
-			setIsGameMusicPlaying(false);
-		} else {
-			playGameMusic();
-			setIsGameMusicPlaying(true);
-		}
-	}
-
 	return (
 		<>
 			<p>Score: {score}</p>
-			<button onClick={handleToggleGameMusic}>{isGameMusicPlaying ? "Pause music" : "Play music"}</button>
+			<button onClick={toggleGameMusic}>{isGameMusicPlaying ? "Pause music" : "Play music"}</button>
 			<ul className="deck">
 				{displayedCardIndeces.map((cardIndex) => (
 					<li key={cardIndex}>

@@ -147,6 +147,30 @@ li {
 	}
 }
 
+[data-background] {
+	background-blend-mode: multiply;
+}
+
+[data-background="yellow"] {
+	background-image: url("/images/backgrounds/yellow.svg");
+	background-color: var(--color-yellow);
+}
+
+[data-background="blue"] {
+	background-image: url("/images/backgrounds/blue.svg");
+	background-color: var(--color-blue);
+}
+
+[data-background="orange"] {
+	background-image: url("/images/backgrounds/orange.svg");
+	background-color: var(--color-orange);
+}
+
+[data-background="pink"] {
+	background-image: url("/images/backgrounds/pink.svg");
+	background-color: var(--color-pink);
+}
+
 @keyframes spin {
 	0% {
 		transform: rotate(0deg);

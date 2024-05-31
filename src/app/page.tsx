@@ -5,7 +5,10 @@ import Menu from "@/components/Menu";
 
 export default function HomePage() {
 	return (
-		<main className={styles.main}>
+		<main
+			className={styles.main}
+			data-background="yellow"
+		>
 			<header>
 				<h1 className="sr-only">Dobble Go</h1>
 				<Logo />
