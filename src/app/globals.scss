@@ -171,6 +171,18 @@ li {
 	background-color: var(--color-pink);
 }
 
+.text-outlined {
+	font-size: 2.75em;
+	font-family: inherit;
+	color: var(--color-white);
+	-webkit-text-fill-color: var(--color-white);
+	-webkit-text-stroke-color: var(--color-black);
+	-webkit-text-stroke-width: 4px;
+	text-transform: uppercase;
+	letter-spacing: -0.05em;
+	cursor: inherit;
+}
+
 @keyframes spin {
 	0% {
 		transform: rotate(0deg);

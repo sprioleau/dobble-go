@@ -54,6 +54,7 @@ export default function Menu() {
 						onMouseEnter={() => playMenuNavigateSound()}
 					>
 						<Link
+							className="text-outlined"
 							onClick={handleStartGame}
 							autoFocus
 							href={`/play?difficulty=${difficulty}`}
@@ -65,13 +66,19 @@ export default function Menu() {
 						className={styles["menu-item"]}
 						onMouseEnter={() => playMenuNavigateSound()}
 					>
-						<button onClick={handleOpenOptionsModal}>Options</button>
+						<button
+							className="text-outlined"
+							onClick={handleOpenOptionsModal}
+						>
+							Options
+						</button>
 					</li>
 					<li
 						className={styles["menu-item"]}
 						onMouseEnter={() => playMenuNavigateSound()}
 					>
 						<Link
+							className="text-outlined"
 							onClick={handleStartGame}
 							autoFocus
 							href={`/leaderboard`}

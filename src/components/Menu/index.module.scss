@@ -1,8 +1,7 @@
 .menu-items {
 	display: flex;
 	flex-direction: column;
-	gap: 0.375em;
-	font-size: 2.75em;
+	gap: 1.25em;
 	text-align: center;
 }
 
@@ -15,17 +14,7 @@
 		border: none;
 		outline: none;
 		background: none;
-		font-size: inherit;
-		cursor: pointer;
-		font-family: inherit;
-		color: var(--color-white);
-		-webkit-text-fill-color: var(--color-white);
-		-webkit-text-stroke-color: var(--color-black);
-		-webkit-text-stroke-width: 4px;
-		text-transform: uppercase;
-		letter-spacing: -0.05em;
 		position: relative;
-		cursor: inherit;
 
 		&::before,
 		&::after {
