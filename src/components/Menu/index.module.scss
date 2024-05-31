@@ -1,8 +1,9 @@
 .menu-items {
 	display: flex;
 	flex-direction: column;
-	gap: 1.25em;
+	gap: 0.5em;
 	text-align: center;
+	font-size: 2.75rem;
 }
 
 .menu-item {
@@ -11,10 +12,12 @@
 		--opacity: 0;
 		--translateX: 0;
 		--translateY: -50%;
+
 		border: none;
 		outline: none;
 		background: none;
 		position: relative;
+		font-size: inherit;
 
 		&::before,
 		&::after {

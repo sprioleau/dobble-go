@@ -37,6 +37,9 @@
 	--color-orange: rgba(248, 174, 5, 1);
 	--color-green: rgba(1, 122, 113, 1);
 
+	/* Border styles */
+	--border-width: 4px;
+
 	/* Effect styles */
 	--double-drop-shadow: 16px 16px 0px rgba(8, 23, 50, 0.25), 8px 8px 0px rgba(8, 23, 50, 1);
 }
@@ -56,6 +59,7 @@ html,
 body {
 	max-width: 100vw;
 	overflow-x: hidden;
+	overscroll-behavior: none;
 }
 
 body {
@@ -104,49 +108,6 @@ li {
 	gap: 1em;
 }
 
-.card {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	background-color: white;
-	padding: 1em;
-	aspect-ratio: 1 / 1;
-	border-radius: 50%;
-	width: 250px;
-	position: relative;
-	transform: rotate(var(--card-rotation));
-	animation: spin 40s linear infinite;
-}
-
-.symbol-image-container {
-	position: absolute;
-	left: 50%;
-	transform-origin: bottom;
-	transform: translate(-50%, -50%) rotate(var(--offset-angle));
-}
-
-.symbol-button {
-	appearance: none;
-	border: none;
-	background: none;
-	cursor: pointer;
-	margin-bottom: 36px;
-	width: 5em;
-	aspect-ratio: 1 / 1;
-	transform: rotate(var(--image-rotation)) scale(var(--image-scale));
-	border-radius: 50%;
-
-	> img {
-		transition: transform 0.15s ease-out;
-	}
-
-	&:hover {
-		> img {
-			transform: scale(1.15);
-		}
-	}
-}
-
 [data-background] {
 	background-blend-mode: multiply;
 }
@@ -169,25 +130,4 @@ li {
 [data-background="pink"] {
 	background-image: url("/images/backgrounds/pink.svg");
 	background-color: var(--color-pink);
-}
-
-.text-outlined {
-	font-size: 2.75em;
-	font-family: inherit;
-	color: var(--color-white);
-	-webkit-text-fill-color: var(--color-white);
-	-webkit-text-stroke-color: var(--color-black);
-	-webkit-text-stroke-width: 4px;
-	text-transform: uppercase;
-	letter-spacing: -0.05em;
-	cursor: inherit;
-}
-
-@keyframes spin {
-	0% {
-		transform: rotate(0deg);
-	}
-	100% {
-		transform: rotate(360deg);
-	}
 }

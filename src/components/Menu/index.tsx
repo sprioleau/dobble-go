@@ -1,9 +1,10 @@
 "use client";
 
-import Link from "next/link";
 import styles from "./index.module.scss";
 
+import OutlinedText from "@/components/OutlinedText";
 import useSound from "@/hooks/useSound";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
@@ -54,23 +55,19 @@ export default function Menu() {
 						onMouseEnter={() => playMenuNavigateSound()}
 					>
 						<Link
-							className="text-outlined"
 							onClick={handleStartGame}
 							autoFocus
 							href={`/play?difficulty=${difficulty}`}
 						>
-							Start
+							<OutlinedText>Start</OutlinedText>
 						</Link>
 					</li>
 					<li
 						className={styles["menu-item"]}
 						onMouseEnter={() => playMenuNavigateSound()}
 					>
-						<button
-							className="text-outlined"
-							onClick={handleOpenOptionsModal}
-						>
-							Options
+						<button onClick={handleOpenOptionsModal}>
+							<OutlinedText>Options</OutlinedText>
 						</button>
 					</li>
 					<li
@@ -78,12 +75,11 @@ export default function Menu() {
 						onMouseEnter={() => playMenuNavigateSound()}
 					>
 						<Link
-							className="text-outlined"
 							onClick={handleStartGame}
 							autoFocus
 							href={`/leaderboard`}
 						>
-							Leaderboard
+							<OutlinedText>Leaderboard</OutlinedText>
 						</Link>
 					</li>
 				</ul>

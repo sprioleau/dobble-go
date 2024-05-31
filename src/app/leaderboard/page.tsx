@@ -1,3 +1,4 @@
+import OutlinedText from "@/components/OutlinedText";
 import styles from "./page.module.scss";
 
 import BackToMenuPageLink from "@/components/BackToMenuPageLink";
@@ -8,7 +9,9 @@ export default function LeaderboardPage() {
 			className={styles.main}
 			data-background="yellow"
 		>
-			<h1 className="text-outlined">Leaderboard</h1>
+			<h1>
+				<OutlinedText>Leaderboard</OutlinedText>
+			</h1>
 			<BackToMenuPageLink />
 		</main>
 	);

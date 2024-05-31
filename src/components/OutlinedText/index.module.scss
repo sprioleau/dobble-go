@@ -1,0 +1,11 @@
+.outlined-text {
+	font-size: 2.75rem;
+	font-family: "Kid Games", sans-serif;
+	color: var(--color-white);
+	-webkit-text-fill-color: var(--color-white);
+	-webkit-text-stroke-color: var(--color-black);
+	-webkit-text-stroke-width: 4px;
+	text-transform: uppercase;
+	letter-spacing: -0.05em;
+	cursor: inherit;
+}
