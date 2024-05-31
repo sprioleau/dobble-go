@@ -1,11 +1,14 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
+import styles from "./index.module.scss";
+
+import Button from "@/components/Button";
 import Card from "@/components/Card";
+import OutlinedText from "@/components/OutlinedText";
 import useSound from "@/hooks/useSound";
 import generateDobble from "@/utils/generateDobble";
 import { useEffect, useState } from "react";
-import OutlinedText from "../OutlinedText";
 
 function getDuplicateItems(array: number[]) {
 	return array.filter((item, index) => array.indexOf(item) !== index);
@@ -59,7 +62,7 @@ export default function Dobble({ dobble: { deck: initialDeck, symbolsPerCard } }
 				<p>
 					<OutlinedText>Score: {score}</OutlinedText>
 				</p>
-				<button onClick={restart}>Restart</button>
+				<Button onClick={restart}>Restart</Button>
 			</>
 		);
 	}
@@ -90,11 +93,13 @@ export default function Dobble({ dobble: { deck: initialDeck, symbolsPerCard } }
 
 	return (
 		<>
-			<p>
-				<OutlinedText>Score: {score}</OutlinedText>
-			</p>
-			<button onClick={toggleGameMusic}>{isGameMusicPlaying ? "Pause music" : "Play music"}</button>
-			<ul className="deck">
+			<header className={styles["header"]}>
+				<p>
+					<OutlinedText>Score: {score}</OutlinedText>
+				</p>
+				<Button onClick={toggleGameMusic}>{isGameMusicPlaying ? "Pause music" : "Play music"}</Button>
+			</header>
+			<ul className={styles["cards"]}>
 				{displayedCardIndeces.map((cardIndex) => (
 					<li key={cardIndex}>
 						<Card
