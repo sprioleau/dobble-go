@@ -1,16 +1,15 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
+import Card from "@/components/Card";
 import useSound from "@/hooks/useSound";
 import generateDobble from "@/utils/generateDobble";
 import { useEffect, useState } from "react";
+import OutlinedText from "../OutlinedText";
 
 function getDuplicateItems(array: number[]) {
 	return array.filter((item, index) => array.indexOf(item) !== index);
 }
-
-const IMAGE_ANGLES = [-22, 54, 189, -120];
-const IMAGE_SCALES = [0.7, 0.85, 1, 1.1];
 
 type Props = {
 	dobble: ReturnType<typeof generateDobble>;
@@ -54,8 +53,12 @@ export default function Dobble({ dobble: { deck: initialDeck, symbolsPerCard } }
 	if (displayedCardIndeces.length < 2) {
 		return (
 			<>
-				<p>You&apos;ve finsished the round</p>
-				<p>Score: {score}</p>
+				<p>
+					<OutlinedText>Finished!</OutlinedText>
+				</p>
+				<p>
+					<OutlinedText>Score: {score}</OutlinedText>
+				</p>
 				<button onClick={restart}>Restart</button>
 			</>
 		);
@@ -87,54 +90,25 @@ export default function Dobble({ dobble: { deck: initialDeck, symbolsPerCard } }
 
 	return (
 		<>
-			<p>Score: {score}</p>
+			<p>
+				<OutlinedText>Score: {score}</OutlinedText>
+			</p>
 			<button onClick={toggleGameMusic}>{isGameMusicPlaying ? "Pause music" : "Play music"}</button>
 			<ul className="deck">
 				{displayedCardIndeces.map((cardIndex) => (
 					<li key={cardIndex}>
-						<ul
-							className="card"
-							style={
-								{
-									"--card-rotation": (cardIndex % 2 === 0 ? -46 : 28) + "deg",
-								} as React.CSSProperties
-							}
-						>
-							{deck[cardIndex].map((imageIndex, rotationIndex) => {
-								return (
-									<li
-										key={imageIndex}
-										className="symbol-image-container"
-										style={
-											{
-												"--offset-angle": rotationIndex * (360 / symbolsPerCard) + "deg",
-											} as React.CSSProperties
-										}
-									>
-										<button
-											className="symbol-button"
-											onClick={() => handleClick({ selectedCardIndex: cardIndex, selectedImageIndex: imageIndex })}
-											style={
-												{
-													"--image-rotation": `${IMAGE_ANGLES[(imageIndex + 1) % IMAGE_ANGLES.length]}deg`,
-													"--image-scale": `${IMAGE_SCALES[(imageIndex + 1) % IMAGE_SCALES.length]}`,
-												} as React.CSSProperties
-											}
-										>
-											<img
-												src={`/images/symbols/${imageIndex + 1}.svg`}
-												alt="emoji"
-												draggable={false}
-											/>
-										</button>
-									</li>
-								);
-							})}
-						</ul>
+						<Card
+							cardIndex={cardIndex}
+							card={deck[cardIndex]}
+							symbolsPerCard={symbolsPerCard}
+							onSelectSymbol={handleClick}
+						/>
 					</li>
 				))}
 			</ul>
-			<p>Cards remaining: {remainingCards}</p>
+			<p>
+				<OutlinedText>Cards remaining: {remainingCards}</OutlinedText>
+			</p>
 		</>
 	);
 }
