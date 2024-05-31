@@ -2,6 +2,7 @@ import styles from "./page.module.scss";
 
 import Logo from "@/components/Logo";
 import Menu from "@/components/Menu";
+import MenuCard from "@/components/MenuCard";
 
 export default function HomePage() {
 	return (
@@ -9,11 +10,18 @@ export default function HomePage() {
 			className={styles.main}
 			data-background="yellow"
 		>
-			<header>
-				<h1 className="sr-only">Dobble Go</h1>
-				<Logo />
-			</header>
-			<Menu />
+			<section className={styles["section"]}>
+				<header>
+					<h1 className="sr-only">Dobble Go</h1>
+					<div className={styles["logo"]}>
+						<Logo />
+					</div>
+				</header>
+				<Menu />
+			</section>
+			<aside>
+				<MenuCard />
+			</aside>
 		</main>
 	);
 }
