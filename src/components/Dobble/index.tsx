@@ -9,6 +9,8 @@ import OutlinedText from "@/components/OutlinedText";
 import useSound from "@/hooks/useSound";
 import generateDobble from "@/utils/generateDobble";
 import { useEffect, useState } from "react";
+import RadioGroup from "../RadioGroup";
+import Image from "next/image";
 
 function getDuplicateItems(array: number[]) {
 	return array.filter((item, index) => array.indexOf(item) !== index);
@@ -97,7 +99,15 @@ export default function Dobble({ dobble: { deck: initialDeck, symbolsPerCard } }
 				<p>
 					<OutlinedText>Score: {score}</OutlinedText>
 				</p>
-				<Button onClick={toggleGameMusic}>{isGameMusicPlaying ? "Pause music" : "Play music"}</Button>
+				<RadioGroup
+					// prettier-ignore
+					options={[
+						{ label: <Image src="/images/sound-on.svg" alt="Sound on" width={48} height={48} />, value: "on", },
+						{ label: <Image src="/images/sound-off.svg" alt="Sound off" width={48} height={48} />, value: "off", },
+					]}
+					activeValue={isGameMusicPlaying ? "on" : "off"}
+					onChange={() => toggleGameMusic()}
+				/>
 			</header>
 			<ul className={styles["cards"]}>
 				{displayedCardIndeces.map((cardIndex) => (

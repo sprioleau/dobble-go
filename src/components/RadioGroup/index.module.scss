@@ -1,0 +1,39 @@
+.radio-group {
+	display: flex;
+	border: var(--border-width) solid var(--color-black);
+	border-radius: 0.5em;
+	user-select: none;
+	box-shadow: var(--double-drop-shadow);
+	appearance: none;
+	outline: none;
+	position: relative;
+	background-color: var(--color-gray);
+}
+
+.label {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+	z-index: 1;
+	padding: 1em;
+}
+
+.input {
+	height: 0;
+	position: fixed;
+	left: -100vw;
+}
+
+.active-indicator {
+	background-color: var(--color-blue);
+	width: 50%;
+	aspect-ratio: 1 / 1;
+	position: absolute;
+	border-radius: 0.25em;
+	z-index: 0;
+	inset-block: 0;
+	inset-inline-start: 0;
+	transform: translateX(var(--offset-x));
+	transition: transform 0.15s ease-out;
+}

@@ -27,21 +27,22 @@
 
 :root {
 	/* Color styles */
-	--color-white: rgba(244, 242, 235, 1);
-	--color-black: rgba(8, 23, 50, 1);
-	--color-black-65: rgba(8, 23, 50, 0.65);
-	--color-red: rgba(241, 105, 50, 1);
-	--color-yellow: rgba(249, 215, 68, 1);
-	--color-pink: rgba(255, 188, 221, 1);
-	--color-blue: rgba(45, 118, 255, 1);
-	--color-orange: rgba(248, 174, 5, 1);
-	--color-green: rgba(1, 122, 113, 1);
+	--color-white: rgb(244, 242, 235, 1);
+	--color-black: rgb(8, 23, 50, 1);
+	--color-gray: rgb(212, 211, 210);
+	--color-black-65: rgb(8, 23, 50, 0.65);
+	--color-red: rgb(241, 105, 50, 1);
+	--color-yellow: rgb(249, 215, 68, 1);
+	--color-pink: rgb(255, 188, 221, 1);
+	--color-blue: rgb(45, 118, 255, 1);
+	--color-orange: rgb(248, 174, 5, 1);
+	--color-green: rgb(1, 122, 113, 1);
 
 	/* Border styles */
 	--border-width: 4px;
 
 	/* Effect styles */
-	--double-drop-shadow: 16px 16px 0px rgba(8, 23, 50, 0.25), 8px 8px 0px rgba(8, 23, 50, 1);
+	--double-drop-shadow: 16px 16px 0px rgb(8, 23, 50, 0.25), 8px 8px 0px rgb(8, 23, 50, 1);
 }
 
 ::selection {
