@@ -1,1 +1,3 @@
 - [ ] Swap out `useSound` hook for one that gives access to `onComplete` option or allows looping
+- [ ] Use modulo operator to get a different set of symbols for each game
+- [ ] Lose points with incorrect answers (add as game option?)

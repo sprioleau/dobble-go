@@ -1,14 +1,11 @@
 import styles from "./index.module.scss";
 
-import Image from "next/image";
-
-const IMAGE_ANGLES = [-22, 54, 189, -120];
-const IMAGE_SCALES = [0.7, 0.85, 1, 1.1];
+import { GAME_OPTIONS } from "@/constants/gameOptions";
+import useDifficulty from "@/hooks/useDifficulty";
 
 type Props = {
 	cardIndex: number;
 	card: number[];
-	symbolsPerCard: number;
 	onSelectSymbol: ({
 		selectedCardIndex,
 		selectedImageIndex,
@@ -16,9 +13,13 @@ type Props = {
 		selectedCardIndex: number;
 		selectedImageIndex: number;
 	}) => void;
+	isMenuCard?: boolean;
 };
 
-export default function Card({ cardIndex, card, symbolsPerCard, onSelectSymbol }: Props) {
+export default function Card({ cardIndex, card, onSelectSymbol, isMenuCard = false }: Props) {
+	const { difficulty } = useDifficulty();
+	const { IMAGE_TRANSFORMS } = GAME_OPTIONS.DIFFICULTY[!isMenuCard ? difficulty : "INTERMEDIATE"];
+
 	return (
 		<div className={styles["card-container"]}>
 			<ul
@@ -29,14 +30,19 @@ export default function Card({ cardIndex, card, symbolsPerCard, onSelectSymbol }
 					} as React.CSSProperties
 				}
 			>
-				{card.map((imageIndex, rotationIndex) => {
+				{card.map((imageIndex, index) => {
+					const { rotation, size, x, y } = IMAGE_TRANSFORMS[index];
+
 					return (
 						<li
 							key={imageIndex}
 							className={styles["symbol-image-container"]}
 							style={
 								{
-									"--offset-angle": rotationIndex * (360 / symbolsPerCard) + "deg",
+									"--image-rotation": `${rotation}deg`,
+									"--size": `${size}cqi`,
+									"--x": `${x}cqi`,
+									"--y": `${y}cqi`,
 								} as React.CSSProperties
 							}
 						>
@@ -45,19 +51,10 @@ export default function Card({ cardIndex, card, symbolsPerCard, onSelectSymbol }
 								onClick={() => onSelectSymbol({ selectedCardIndex: cardIndex, selectedImageIndex: imageIndex })}
 								style={
 									{
-										"--image-rotation": `${IMAGE_ANGLES[(imageIndex + 1) % IMAGE_ANGLES.length]}deg`,
-										"--image-scale": `${IMAGE_SCALES[(imageIndex + 1) % IMAGE_SCALES.length]}`,
+										backgroundImage: `url("/images/symbols/${imageIndex + 1}.svg")`,
 									} as React.CSSProperties
 								}
-							>
-								<Image
-									src={`/images/symbols/${imageIndex + 1}.svg`}
-									alt="emoji"
-									draggable={false}
-									width={100}
-									height={100}
-								/>
-							</button>
+							/>
 						</li>
 					);
 				})}

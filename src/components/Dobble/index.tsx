@@ -115,7 +115,6 @@ export default function Dobble({ dobble: { deck: initialDeck, symbolsPerCard } }
 						<Card
 							cardIndex={cardIndex}
 							card={deck[cardIndex]}
-							symbolsPerCard={symbolsPerCard}
 							onSelectSymbol={handleClick}
 						/>
 					</li>
