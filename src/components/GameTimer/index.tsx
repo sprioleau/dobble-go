@@ -22,7 +22,14 @@ export default function GameTimer({ secondsToExpire, onExpire }: Props) {
 		onExpire,
 	});
 
-	if (isRunning && minutes === 0 && seconds < Math.floor(0.1 * secondsToExpire) && !isInFinalSeconds) {
+	/* Pulse timer when either...
+		- it's less than 10 seconds
+		- it's less than 10% of the time remaining
+		...whichever is greater
+	*/
+	const secondsToPulse = Math.max(Math.floor(0.1 * secondsToExpire), 10);
+
+	if (isRunning && minutes === 0 && seconds < secondsToPulse && !isInFinalSeconds) {
 		setIsInFinalSeconds(true);
 	}
 
