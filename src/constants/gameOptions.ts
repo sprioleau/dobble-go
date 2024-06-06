@@ -13,7 +13,7 @@ export const GAME_OPTIONS = {
 		},
 		INTERMEDIATE: {
 			SYMBOLS_PER_CARD: 6,
-			DURATION_SECONDS: 60,
+			DURATION_SECONDS: 120,
 			IMAGE_TRANSFORMS: [
 				{ rotation: -22, size: 36, x: 30, y: -15 },
 				{ rotation: -15, size: 38, x: -5, y: -34 },

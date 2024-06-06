@@ -12,6 +12,7 @@ export default function generateDobble({
 	const randomOffset = Math.floor(Math.random() * TOTAL_SYMBOLS);
 	// prettier-ignore
 	const deck = generate(symbolsPerCard, shouldValidateResult)
+		.sort(() => Math.random() - 0.5)
 		.reduce<Record<number, number[]>>((acc, card, index) => {
 			acc[index] = card
 				.sort(() => Math.random() - 0.5)
