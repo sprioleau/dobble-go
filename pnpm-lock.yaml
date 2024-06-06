@@ -20,6 +20,9 @@ importers:
       react-dom:
         specifier: ^18
         version: 18.3.1(react@18.3.1)
+      react-timer-hook:
+        specifier: ^3.0.7
+        version: 3.0.7(react@18.3.1)
       react-use-audio-player:
         specifier: ^2.2.0
         version: 2.2.0(react@18.3.1)
@@ -1099,6 +1102,11 @@ packages:
 
   react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
+
+  react-timer-hook@3.0.7:
+    resolution: {integrity: sha512-ATpNcU+PQRxxfNBPVqce2+REtjGAlwmfoNQfcEBMZFxPj0r3GYdKhyPHdStvqrejejEi0QvqaJZjy2lBlFvAsA==}
+    peerDependencies:
+      react: '>=16.8.0'
 
   react-use-audio-player@2.2.0:
     resolution: {integrity: sha512-IMM+WiZAq1KUvTwq0sAdRdjEzyG4jzz1tK/JtC/+LLt3z/uJk3AFRLL3pgbOgS/2SnfVzFKCxR7pnBsu6nUFvg==}
@@ -2604,6 +2612,10 @@ snapshots:
       scheduler: 0.23.2
 
   react-is@16.13.1: {}
+
+  react-timer-hook@3.0.7(react@18.3.1):
+    dependencies:
+      react: 18.3.1
 
   react-use-audio-player@2.2.0(react@18.3.1):
     dependencies:

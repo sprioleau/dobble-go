@@ -11,6 +11,7 @@ import generateDobble from "@/utils/generateDobble";
 import { useEffect, useState } from "react";
 import RadioGroup from "../RadioGroup";
 import Image from "next/image";
+import GameTimer from "../GameTimer";
 
 function getDuplicateItems(array: number[]) {
 	return array.filter((item, index) => array.indexOf(item) !== index);
@@ -93,11 +94,22 @@ export default function Dobble({ dobble: { deck: initialDeck, symbolsPerCard } }
 		});
 	}
 
+	function handleEndGame() {
+		setDeck({});
+		stopGameMusic();
+	}
+
 	return (
 		<>
 			<header className={styles["header"]}>
 				<p>
 					<OutlinedText>Score: {score}</OutlinedText>
+				</p>
+				<p>
+					<GameTimer
+						secondsToExpire={10}
+						onExpire={handleEndGame}
+					/>
 				</p>
 				<RadioGroup
 					// prettier-ignore
