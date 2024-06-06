@@ -5,5 +5,6 @@
   - [ ] Add as game option?
 - [ ] Add Game Timer
   - [x] Add `GameTimer` component
-  - [ ] consider for score (add as game mode? ... endless vs. challenge?
+  - [x] Change time based on difficulty
+  - [ ] consider for score (add as game mode? ... endless vs. challenge?)
   - [ ] Add ability to pause/resume timer

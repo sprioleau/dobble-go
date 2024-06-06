@@ -23,7 +23,10 @@ export default function PlayPage({ searchParams }: Props) {
 			className={styles.main}
 			data-background="orange"
 		>
-			<Dobble dobble={dobble} />
+			<Dobble
+				dobble={dobble}
+				difficulty={difficulty}
+			/>
 			<BackToMenuPageLink />
 		</main>
 	);

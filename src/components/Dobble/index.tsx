@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import RadioGroup from "../RadioGroup";
 import Image from "next/image";
 import GameTimer from "../GameTimer";
+import { GAME_OPTIONS } from "@/constants/gameOptions";
 
 function getDuplicateItems(array: number[]) {
 	return array.filter((item, index) => array.indexOf(item) !== index);
@@ -19,9 +20,10 @@ function getDuplicateItems(array: number[]) {
 
 type Props = {
 	dobble: ReturnType<typeof generateDobble>;
+	difficulty: keyof typeof GAME_OPTIONS.DIFFICULTY;
 };
 
-export default function Dobble({ dobble: { deck: initialDeck, symbolsPerCard } }: Props) {
+export default function Dobble({ dobble: { deck: initialDeck, symbolsPerCard }, difficulty }: Props) {
 	const [deck, setDeck] = useState<ReturnType<typeof generateDobble>["deck"]>(initialDeck);
 	const [score, setScore] = useState(0);
 
@@ -108,7 +110,7 @@ export default function Dobble({ dobble: { deck: initialDeck, symbolsPerCard } }
 				</p>
 				<p>
 					<GameTimer
-						secondsToExpire={10}
+						secondsToExpire={GAME_OPTIONS.DIFFICULTY[difficulty].DURATION_SECONDS}
 						onExpire={handleEndGame}
 					/>
 				</p>
