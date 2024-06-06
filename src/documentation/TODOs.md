@@ -1,4 +1,9 @@
 - [x] Swap out `useSound` hook for one that gives access to `onComplete` option or allows looping
 - [x] Use modulo operator to get a different set of symbols for each game
-- [ ] Lose points with incorrect answers (add as game option?)
-- [ ] Add timer and consider for score (add as game mode? ... endless vs. challenge?)
+- [ ] Points
+  - [x] Lose points with incorrect answers
+  - [ ] Add as game option?
+- [ ] Add Game Timer
+  - [x] Add `GameTimer` component
+  - [ ] consider for score (add as game mode? ... endless vs. challenge?
+  - [ ] Add ability to pause/resume timer

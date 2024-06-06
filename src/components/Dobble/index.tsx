@@ -80,6 +80,7 @@ export default function Dobble({ dobble: { deck: initialDeck, symbolsPerCard } }
 	}) {
 		if (selectedImageIndex !== correctImageIndex) {
 			playIncorrectSound();
+			setScore((s) => Math.max(0, s - 1));
 			return;
 		}
 
@@ -118,7 +119,7 @@ export default function Dobble({ dobble: { deck: initialDeck, symbolsPerCard } }
 						{ label: <Image src="/images/sound-off.svg" alt="Sound off" width={48} height={48} />, value: "off", },
 					]}
 					activeValue={isGameMusicPlaying ? "on" : "off"}
-					onChange={() => toggleGameMusic()}
+					onChange={toggleGameMusic}
 				/>
 			</header>
 			<ul className={styles["cards"]}>
