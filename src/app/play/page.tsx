@@ -5,6 +5,8 @@ import Dobble from "@/components/Dobble";
 import { GAME_OPTIONS } from "@/constants/gameOptions";
 import generateDobble from "@/utils/generateDobble";
 
+export const dynamic = "force-dynamic";
+
 type Props = {
 	searchParams: {
 		difficulty: string;
