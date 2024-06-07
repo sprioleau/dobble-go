@@ -1,22 +1,21 @@
-/* eslint-disable @next/next/no-img-element */
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import styles from "./index.module.scss";
 
-import Button from "@/components/Button";
 import Card from "@/components/Card";
+import GameEndedScreen from "@/components/GameEndedScreen";
+import GameTimer from "@/components/GameTimer";
 import OutlinedText from "@/components/OutlinedText";
+import RadioGroup from "@/components/RadioGroup";
+import { GAME_OPTIONS } from "@/constants/gameOptions";
 import useSound from "@/hooks/useSound";
 import generateDobble from "@/utils/generateDobble";
-import { useEffect, useState } from "react";
-import RadioGroup from "../RadioGroup";
+import getDuplicateItems from "@/utils/getDuplicateItems";
 import Image from "next/image";
-import GameTimer from "../GameTimer";
-import { GAME_OPTIONS } from "@/constants/gameOptions";
+import { useCallback, useEffect, useState } from "react";
 
-function getDuplicateItems(array: number[]) {
-	return array.filter((item, index) => array.indexOf(item) !== index);
-}
+type GameMode = "PLAYING" | "ENDED";
 
 type Props = {
 	dobble: ReturnType<typeof generateDobble>;
@@ -26,6 +25,7 @@ type Props = {
 export default function Dobble({ dobble: { deck: initialDeck, symbolsPerCard }, difficulty }: Props) {
 	const [deck, setDeck] = useState<ReturnType<typeof generateDobble>["deck"]>(initialDeck);
 	const [score, setScore] = useState(0);
+	const [gameMode, setGameMode] = useState<GameMode>("PLAYING");
 
 	// Sounds
 	const {
@@ -34,44 +34,61 @@ export default function Dobble({ dobble: { deck: initialDeck, symbolsPerCard }, 
 		togglePlayPause: toggleGameMusic,
 		playing: isGameMusicPlaying,
 	} = useSound("/sounds/game-music.mp3", {
-		autoplay: true,
 		initialVolume: 0.5,
 		loop: true,
+		autoplay: false,
+	});
+	const {
+		play: playGameEndedMusic,
+		stop: stopGameEndedMusic,
+		togglePlayPause: toggleGameEndedMusic,
+		playing: isGameEndedMusicPlaying,
+	} = useSound("/sounds/game-ended.mp3", {
+		initialVolume: 0.5,
+		loop: true,
+		autoplay: false,
 	});
 	const { play: playCorrectSound } = useSound("/sounds/correct.mp3");
 	const { play: playIncorrectSound } = useSound("/sounds/incorrect.mp3");
 
-	const displayedCardIndeces = Object.keys(deck).map(Number).slice(0, 2);
-
 	useEffect(() => {
-		playGameMusic();
+		if (gameMode === "PLAYING" && !isGameMusicPlaying) {
+			playGameMusic();
+		}
+
+		if (gameMode === "ENDED" && !isGameEndedMusicPlaying) {
+			playGameEndedMusic();
+		}
 
 		return () => {
 			stopGameMusic();
+			stopGameEndedMusic();
 		};
-	}, [playGameMusic, stopGameMusic]);
+	}, [gameMode]);
 
 	function restart() {
 		setDeck(generateDobble({ symbolsPerCard }).deck);
+		setGameMode("PLAYING");
+		stopGameEndedMusic();
+		playGameMusic();
 		setScore(0);
 	}
 
+	const displayedCardIndeces = Object.keys(deck).map(Number).slice(0, 2);
 	const remainingCards = Object.keys(deck).length - displayedCardIndeces.length;
 
-	if (displayedCardIndeces.length < 2) {
-		return (
-			<>
-				<p>
-					<OutlinedText>Finished!</OutlinedText>
-				</p>
-				<p>
-					<OutlinedText>Score: {score}</OutlinedText>
-				</p>
-				<Button onClick={restart}>Restart</Button>
-			</>
-		);
-	}
-	const [correctImageIndex] = getDuplicateItems([...deck[displayedCardIndeces[0]], ...deck[displayedCardIndeces[1]]]);
+	const handleEndGame = useCallback(() => {
+		setGameMode("ENDED");
+		stopGameMusic();
+		playGameEndedMusic();
+	}, []);
+
+	useEffect(() => {
+		if (remainingCards === 0) {
+			setGameMode("ENDED");
+			handleEndGame();
+		}
+	}, [remainingCards]);
 
 	function handleClick({
 		selectedCardIndex,
@@ -80,6 +97,10 @@ export default function Dobble({ dobble: { deck: initialDeck, symbolsPerCard }, 
 		selectedCardIndex: number;
 		selectedImageIndex: number;
 	}) {
+		if (gameMode === "ENDED") return;
+
+		const [correctImageIndex] = getDuplicateItems([...deck[displayedCardIndeces[0]], ...deck[displayedCardIndeces[1]]]);
+
 		if (selectedImageIndex !== correctImageIndex) {
 			playIncorrectSound();
 			setScore((s) => Math.max(0, s - 1));
@@ -97,22 +118,11 @@ export default function Dobble({ dobble: { deck: initialDeck, symbolsPerCard }, 
 		});
 	}
 
-	function handleEndGame() {
-		setDeck({});
-		stopGameMusic();
-	}
-
 	return (
 		<>
 			<header className={styles["header"]}>
 				<p>
 					<OutlinedText>Score: {score}</OutlinedText>
-				</p>
-				<p>
-					<GameTimer
-						secondsToExpire={GAME_OPTIONS.DIFFICULTY[difficulty].DURATION_SECONDS}
-						onExpire={handleEndGame}
-					/>
 				</p>
 				<RadioGroup
 					// prettier-ignore
@@ -120,24 +130,34 @@ export default function Dobble({ dobble: { deck: initialDeck, symbolsPerCard }, 
 						{ label: <Image src="/images/sound-on.svg" alt="Sound on" width={48} height={48} />, value: "on", },
 						{ label: <Image src="/images/sound-off.svg" alt="Sound off" width={48} height={48} />, value: "off", },
 					]}
-					activeValue={isGameMusicPlaying ? "on" : "off"}
-					onChange={toggleGameMusic}
+					activeValue={isGameMusicPlaying || isGameEndedMusicPlaying ? "on" : "off"}
+					onChange={() => (gameMode === "PLAYING" ? toggleGameMusic() : toggleGameEndedMusic())}
 				/>
 			</header>
-			<ul className={styles["cards"]}>
-				{displayedCardIndeces.map((cardIndex) => (
-					<li key={cardIndex}>
-						<Card
-							cardIndex={cardIndex}
-							card={deck[cardIndex]}
-							onSelectSymbol={handleClick}
-						/>
-					</li>
-				))}
-			</ul>
-			<p>
-				<OutlinedText>Cards remaining: {remainingCards}</OutlinedText>
-			</p>
+			{gameMode === "ENDED" ? (
+				<GameEndedScreen restart={restart} />
+			) : (
+				<>
+					<GameTimer
+						secondsToExpire={GAME_OPTIONS.DIFFICULTY[difficulty].DURATION_SECONDS}
+						onExpire={handleEndGame}
+					/>
+					<ul className={styles["cards"]}>
+						{displayedCardIndeces.map((cardIndex) => (
+							<li key={cardIndex}>
+								<Card
+									cardIndex={cardIndex}
+									card={deck[cardIndex]}
+									onSelectSymbol={handleClick}
+								/>
+							</li>
+						))}
+					</ul>
+					<p>
+						<OutlinedText>Cards remaining: {remainingCards}</OutlinedText>
+					</p>
+				</>
+			)}
 		</>
 	);
 }
