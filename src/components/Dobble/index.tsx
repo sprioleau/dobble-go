@@ -8,11 +8,12 @@ import GameEndedScreen from "@/components/GameEndedScreen";
 import GameTimer from "@/components/GameTimer";
 import OutlinedText from "@/components/OutlinedText";
 import RadioGroup from "@/components/RadioGroup";
+import SoundOff from "@/components/SoundOff";
+import SoundOn from "@/components/SoundOn";
 import { GAME_OPTIONS } from "@/constants/gameOptions";
 import useSound from "@/hooks/useSound";
 import generateDobble from "@/utils/generateDobble";
 import getDuplicateItems from "@/utils/getDuplicateItems";
-import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
 
 type GameMode = "PLAYING" | "ENDED";
@@ -127,8 +128,8 @@ export default function Dobble({ dobble: { deck: initialDeck, symbolsPerCard }, 
 				<RadioGroup
 					// prettier-ignore
 					options={[
-						{ label: <Image src="/images/sound-on.svg" alt="Sound on" width={48} height={48} />, value: "on", },
-						{ label: <Image src="/images/sound-off.svg" alt="Sound off" width={48} height={48} />, value: "off", },
+						{ label: <SoundOn />, value: "on", },
+						{ label: <SoundOff />, value: "off", },
 					]}
 					activeValue={isGameMusicPlaying || isGameEndedMusicPlaying ? "on" : "off"}
 					onChange={() => (gameMode === "PLAYING" ? toggleGameMusic() : toggleGameEndedMusic())}
