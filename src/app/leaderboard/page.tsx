@@ -1,7 +1,8 @@
-import OutlinedText from "@/components/OutlinedText";
 import styles from "./page.module.scss";
 
 import BackToMenuPageLink from "@/components/BackToMenuPageLink";
+import LeaderboardScreen from "@/components/LeaderboardScreen";
+import OutlinedText from "@/components/OutlinedText";
 
 export default function LeaderboardPage() {
 	return (
@@ -12,6 +13,7 @@ export default function LeaderboardPage() {
 			<h1>
 				<OutlinedText>Leaderboard</OutlinedText>
 			</h1>
+			<LeaderboardScreen />
 			<BackToMenuPageLink />
 		</main>
 	);
