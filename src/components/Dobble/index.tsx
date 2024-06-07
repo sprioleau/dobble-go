@@ -104,7 +104,11 @@ export default function Dobble({ dobble: { deck: initialDeck, symbolsPerCard }, 
 
 		if (selectedImageIndex !== correctImageIndex) {
 			playIncorrectSound();
-			setScore((s) => Math.max(0, s - 1));
+
+			if (GAME_OPTIONS.DIFFICULTY[difficulty].PENALIZE_INCORRECT) {
+				setScore((s) => Math.max(0, s - 1));
+			}
+
 			return;
 		}
 

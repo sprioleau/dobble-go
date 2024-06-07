@@ -4,6 +4,7 @@ export const GAME_OPTIONS = {
 		BEGINNER: {
 			SYMBOLS_PER_CARD: 4,
 			DURATION_SECONDS: 45,
+			PENALIZE_INCORRECT: false,
 			IMAGE_TRANSFORMS: [
 				{ rotation: -22, size: 40, x: 28, y: 20 },
 				{ rotation: -15, size: 40, x: -25, y: -20 },
@@ -14,6 +15,7 @@ export const GAME_OPTIONS = {
 		INTERMEDIATE: {
 			SYMBOLS_PER_CARD: 6,
 			DURATION_SECONDS: 120,
+			PENALIZE_INCORRECT: true,
 			IMAGE_TRANSFORMS: [
 				{ rotation: -22, size: 36, x: 30, y: -15 },
 				{ rotation: -15, size: 38, x: -5, y: -34 },

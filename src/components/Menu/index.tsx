@@ -8,6 +8,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import RadioGroup from "@/components/RadioGroup";
+import Image from "next/image";
 
 export default function Menu() {
 	const dialogRef = useRef<HTMLDialogElement>(null);
@@ -50,7 +51,6 @@ export default function Menu() {
 					>
 						<Link
 							onClick={handleStartGame}
-							autoFocus
 							href={`/play?difficulty=${difficulty}`}
 						>
 							<OutlinedText>Start</OutlinedText>
@@ -68,19 +68,19 @@ export default function Menu() {
 						className={styles["menu-item"]}
 						onMouseEnter={() => playMenuNavigateSound()}
 					>
-						<Link href={`/leaderboard`}>
-							<OutlinedText>Leaderboard</OutlinedText>
+						<Link
+							onClick={handleStartGame}
+							href={`/how-to-play`}
+						>
+							<OutlinedText>How to Play</OutlinedText>
 						</Link>
 					</li>
 					<li
 						className={styles["menu-item"]}
 						onMouseEnter={() => playMenuNavigateSound()}
 					>
-						<Link
-							onClick={handleStartGame}
-							href={`/how-to-play`}
-						>
-							<OutlinedText>How to Play</OutlinedText>
+						<Link href={`/leaderboard`}>
+							<OutlinedText>Leaderboard</OutlinedText>
 						</Link>
 					</li>
 				</ul>
@@ -101,9 +101,30 @@ export default function Menu() {
 							onChange={handleDifficultyChange}
 							activeValue={difficulty}
 							options={[
-								{ label: "Beginner", value: "beginner" },
 								{
-									label: <span>Inter&shy;mediate</span>,
+									label: (
+										<>
+											<Image
+												src="/images/difficulty-beginner.svg"
+												alt="beginner difficulty icon"
+												width={100}
+												height={100}
+											/>
+										</>
+									),
+									value: "beginner",
+								},
+								{
+									label: (
+										<>
+											<Image
+												src="/images/difficulty-intermediate.svg"
+												alt="intermediate difficulty icon"
+												width={100}
+												height={100}
+											/>
+										</>
+									),
 									value: "intermediate",
 								},
 							]}
