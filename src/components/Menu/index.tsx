@@ -7,6 +7,7 @@ import useSound from "@/hooks/useSound";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import RadioGroup from "@/components/RadioGroup";
 
 export default function Menu() {
 	const dialogRef = useRef<HTMLDialogElement>(null);
@@ -25,6 +26,7 @@ export default function Menu() {
 
 	function handleStartGame() {
 		playStartGameSound();
+		router.push(`/play?difficulty=${difficulty}`);
 	}
 
 	function handleOpenOptionsModal() {
@@ -35,15 +37,8 @@ export default function Menu() {
 		dialogRef.current?.close();
 	}
 
-	function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-		event.preventDefault();
-		const data = new FormData(event.currentTarget);
-		const difficulty = data.get("difficulty");
-		router.push(`/play?difficulty=${difficulty}`);
-	}
-
-	function handleDifficultyChange(event: React.ChangeEvent<HTMLInputElement>) {
-		setDifficulty(event.target.value);
+	function handleDifficultyChange(value: string) {
+		setDifficulty(value);
 	}
 
 	return (
@@ -85,34 +80,37 @@ export default function Menu() {
 				</ul>
 			</nav>
 
-			<dialog ref={dialogRef}>
-				<button onClick={handleCloseOptionsModal}>&times;</button>
+			<dialog
+				ref={dialogRef}
+				className={styles["options-modal"]}
+			>
+				<div className={styles["options-modal-wrapper"]}>
+					<h1>
+						<OutlinedText>Options</OutlinedText>
+					</h1>
 
-				<form onSubmit={handleSubmit}>
-					<h1>Options</h1>
-					<fieldset>
-						<legend>Options</legend>
-						<input
-							type="radio"
-							id="difficulty-beginner"
-							name="difficulty"
-							value="beginner"
-							checked={difficulty === "beginner"}
+					<section>
+						<h2>Difficulty</h2>
+						<RadioGroup
 							onChange={handleDifficultyChange}
+							activeValue={difficulty}
+							options={[
+								{ label: "Beginner", value: "beginner" },
+								{
+									label: <span>Inter&shy;mediate</span>,
+									value: "intermediate",
+								},
+							]}
 						/>
-						<label htmlFor="difficulty-beginner">Beginner</label>
-						<input
-							type="radio"
-							id="difficulty-intermediate"
-							name="difficulty"
-							value="intermediate"
-							checked={difficulty === "intermediate"}
-							onChange={handleDifficultyChange}
-						/>
-						<label htmlFor="difficulty-intermediate">Intermediate</label>
-					</fieldset>
-					<button>Save</button>
-				</form>
+					</section>
+
+					<button
+						className={styles["close-button"]}
+						onClick={handleCloseOptionsModal}
+					>
+						&times;
+					</button>
+				</div>
 			</dialog>
 		</>
 	);
