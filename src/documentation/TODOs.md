@@ -14,3 +14,4 @@
 - [ ] Game Over screen
   - [ ] Show time remaining?
   - [ ] Show reason for ending game (time expired or matched all cards)?
+- [ ] Allow passing in `size` prop to `OutlinedText` component

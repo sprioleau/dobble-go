@@ -1,0 +1,29 @@
+.main {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 2em;
+	padding: 4rem;
+	min-height: 100vh;
+}
+
+.list {
+	max-width: 60ch;
+	counter-reset: item;
+
+	li {
+		counter-increment: item;
+		position: relative;
+
+		&::before {
+			content: counter(item) ". ";
+			position: absolute;
+			font-size: 2.5rem;
+			left: -3.5rem;
+		}
+
+		> span {
+			font-size: 2.5em;
+		}
+	}
+}

@@ -26,7 +26,6 @@ export default function Menu() {
 
 	function handleStartGame() {
 		playStartGameSound();
-		router.push(`/play?difficulty=${difficulty}`);
 	}
 
 	function handleOpenOptionsModal() {
@@ -69,12 +68,19 @@ export default function Menu() {
 						className={styles["menu-item"]}
 						onMouseEnter={() => playMenuNavigateSound()}
 					>
+						<Link href={`/leaderboard`}>
+							<OutlinedText>Leaderboard</OutlinedText>
+						</Link>
+					</li>
+					<li
+						className={styles["menu-item"]}
+						onMouseEnter={() => playMenuNavigateSound()}
+					>
 						<Link
 							onClick={handleStartGame}
-							autoFocus
-							href={`/leaderboard`}
+							href={`/how-to-play`}
 						>
-							<OutlinedText>Leaderboard</OutlinedText>
+							<OutlinedText>How to Play</OutlinedText>
 						</Link>
 					</li>
 				</ul>
