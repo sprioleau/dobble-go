@@ -46,8 +46,12 @@
 }
 
 ::selection {
-	background: var(--color-black);
+	background-color: var(--color-black);
 	color: var(--color-white);
+}
+
+::backdrop {
+	background-color: var(--color-black-65);
 }
 
 * {
