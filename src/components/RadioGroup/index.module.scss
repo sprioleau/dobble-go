@@ -27,10 +27,11 @@
 
 .active-indicator {
 	background-color: var(--color-blue);
-	width: 50%;
+	width: calc(100% / var(--items-count));
+	border: calc(var(--border-width) * 1.5) solid var(--color-gray);
 	aspect-ratio: 1 / 1;
 	position: absolute;
-	border-radius: 0.25em;
+	border-radius: 0.75em;
 	z-index: 0;
 	inset-block: 0;
 	inset-inline-start: 0;

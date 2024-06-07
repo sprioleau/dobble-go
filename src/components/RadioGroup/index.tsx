@@ -16,7 +16,10 @@ export default function RadioGroup({ options, activeValue, onChange }: Props) {
 	}
 
 	return (
-		<div className={styles["radio-group"]}>
+		<div
+			className={styles["radio-group"]}
+			style={{ "--items-count": options.length } as React.CSSProperties}
+		>
 			{options.map(({ value, label }) => (
 				<label
 					key={value}
