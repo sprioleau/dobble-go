@@ -8,3 +8,9 @@
   - [x] Change time based on difficulty
   - [ ] consider for score (add as game mode? ... endless vs. challenge?)
   - [ ] Add ability to pause/resume timer
+- [ ] Leaderboard
+  - [ ] Name entry screen on game over
+  - [ ] Persist to storage (maybe local and remote)
+- [ ] Game Over screen
+  - [ ] Show time remaining?
+  - [ ] Show reason for ending game (time expired or matched all cards)?
