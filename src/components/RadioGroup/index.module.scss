@@ -16,7 +16,19 @@
 	justify-content: center;
 	position: relative;
 	z-index: 1;
-	padding: 1em;
+	padding: 1rem;
+	color: var(--color-black-65);
+	transition: color 0.15s ease-out;
+	font-size: 2rem;
+	aspect-ratio: 1 / 1;
+	flex: 0 0 calc(100% / var(--items-count));
+	word-break: break-word;
+	hyphens: manual;
+	text-align: center;
+
+	&:has(input:checked) {
+		color: var(--color-white);
+	}
 }
 
 .input {

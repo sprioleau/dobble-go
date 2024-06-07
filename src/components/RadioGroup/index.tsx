@@ -30,9 +30,10 @@ export default function RadioGroup({ options, activeValue, onChange }: Props) {
 						type="radio"
 						name="radio-group"
 						checked={value === activeValue}
+						value={value}
 						onChange={handleChange}
 					/>
-					{label && <span className={styles["label-text"]}>{label}</span>}
+					{label && label}
 				</label>
 			))}
 			<div
