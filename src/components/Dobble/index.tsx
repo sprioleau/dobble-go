@@ -5,8 +5,6 @@ import styles from "./index.module.scss";
 
 import Card from "@/components/Card";
 import GameEndedScreen from "@/components/GameEndedScreen";
-import GameTimer from "@/components/GameTimer";
-import OutlinedText from "@/components/OutlinedText";
 import RadioGroup from "@/components/RadioGroup";
 import SoundOff from "@/components/SoundOff";
 import SoundOn from "@/components/SoundOn";
@@ -15,6 +13,9 @@ import useSound from "@/hooks/useSound";
 import generateDobble from "@/utils/generateDobble";
 import getDuplicateItems from "@/utils/getDuplicateItems";
 import { useCallback, useEffect, useState } from "react";
+import Logo from "@/components/Logo";
+import useGameTimer from "@/hooks/useGameTimer";
+import GameInfoBar from "../GameInfoBar";
 
 type GameMode = "PLAYING" | "ENDED";
 
@@ -52,6 +53,24 @@ export default function Dobble({ dobble: { deck: initialDeck, symbolsPerCard }, 
 	const { play: playCorrectSound } = useSound("/sounds/correct.mp3");
 	const { play: playIncorrectSound } = useSound("/sounds/incorrect.mp3");
 
+	const handleEndGame = useCallback(() => {
+		setGameMode("ENDED");
+		stopGameMusic();
+		playGameEndedMusic();
+	}, []);
+
+	// Game Timer
+	const {
+		seconds,
+		minutes,
+		isRunning,
+		isInFinalSeconds,
+		restart: restartTimer,
+	} = useGameTimer({
+		secondsToExpire: GAME_OPTIONS.DIFFICULTY[difficulty].DURATION_SECONDS,
+		// onExpire: handleEndGame,
+	});
+
 	useEffect(() => {
 		if (gameMode === "PLAYING" && !isGameMusicPlaying && isGameEndedMusicPlaying) {
 			playGameMusic();
@@ -68,6 +87,10 @@ export default function Dobble({ dobble: { deck: initialDeck, symbolsPerCard }, 
 	}, [gameMode]);
 
 	function restart() {
+		const time = new Date();
+		time.setSeconds(time.getSeconds() + GAME_OPTIONS.DIFFICULTY[difficulty].DURATION_SECONDS);
+		restartTimer(time);
+
 		setDeck(generateDobble({ symbolsPerCard }).deck);
 		setGameMode("PLAYING");
 		stopGameEndedMusic();
@@ -77,12 +100,6 @@ export default function Dobble({ dobble: { deck: initialDeck, symbolsPerCard }, 
 
 	const displayedCardIndeces = Object.keys(deck).map(Number).slice(0, 2);
 	const remainingCards = Object.keys(deck).length - displayedCardIndeces.length;
-
-	const handleEndGame = useCallback(() => {
-		setGameMode("ENDED");
-		stopGameMusic();
-		playGameEndedMusic();
-	}, []);
 
 	useEffect(() => {
 		if (remainingCards === 0) {
@@ -126,9 +143,7 @@ export default function Dobble({ dobble: { deck: initialDeck, symbolsPerCard }, 
 	return (
 		<>
 			<header className={styles["header"]}>
-				<p>
-					<OutlinedText>Score: {score}</OutlinedText>
-				</p>
+				<Logo width={350} />
 				<RadioGroup
 					// prettier-ignore
 					options={[
@@ -143,10 +158,6 @@ export default function Dobble({ dobble: { deck: initialDeck, symbolsPerCard }, 
 				<GameEndedScreen restart={restart} />
 			) : (
 				<>
-					<GameTimer
-						secondsToExpire={GAME_OPTIONS.DIFFICULTY[difficulty].DURATION_SECONDS}
-						onExpire={handleEndGame}
-					/>
 					<ul className={styles["cards"]}>
 						{displayedCardIndeces.map((cardIndex) => (
 							<li key={cardIndex}>
@@ -158,9 +169,18 @@ export default function Dobble({ dobble: { deck: initialDeck, symbolsPerCard }, 
 							</li>
 						))}
 					</ul>
-					<p>
-						<OutlinedText>Cards remaining: {remainingCards}</OutlinedText>
-					</p>
+					<footer>
+						<GameInfoBar
+							remainingTime={{
+								seconds,
+								minutes,
+								isRunning,
+								isInFinalSeconds,
+							}}
+							remainingCards={remainingCards}
+							score={score}
+						/>
+					</footer>
 				</>
 			)}
 		</>
