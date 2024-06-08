@@ -53,11 +53,11 @@ export default function Dobble({ dobble: { deck: initialDeck, symbolsPerCard }, 
 	const { play: playIncorrectSound } = useSound("/sounds/incorrect.mp3");
 
 	useEffect(() => {
-		if (gameMode === "PLAYING" && !isGameMusicPlaying) {
+		if (gameMode === "PLAYING" && !isGameMusicPlaying && isGameEndedMusicPlaying) {
 			playGameMusic();
 		}
 
-		if (gameMode === "ENDED" && !isGameEndedMusicPlaying) {
+		if (gameMode === "ENDED" && isGameMusicPlaying && !isGameEndedMusicPlaying) {
 			playGameEndedMusic();
 		}
 
@@ -116,7 +116,7 @@ export default function Dobble({ dobble: { deck: initialDeck, symbolsPerCard }, 
 		setScore((s) => s + 1);
 		playCorrectSound();
 
-		// Once match is found, get rid of the card that was clicked
+		// Once match is found, get rid of the card that was clickedz
 		setDeck((previousDeck) => {
 			delete previousDeck[selectedCardIndex];
 			return previousDeck;
