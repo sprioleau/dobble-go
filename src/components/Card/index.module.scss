@@ -5,7 +5,8 @@
 	outline: var(--border-width) solid var(--color-black);
 	box-shadow: var(--double-drop-shadow);
 	border-radius: 50%;
-	width: max(250px, 25vmax);
+	width: 25vw;
+	max-width: 500px;
 	aspect-ratio: 1 / 1;
 	container-type: inline-size;
 	container-name: card-container;
