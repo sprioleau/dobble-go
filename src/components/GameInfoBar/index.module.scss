@@ -41,6 +41,26 @@
 	}
 }
 
+.timer {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.25rem;
+
+	span {
+		display: inline-block;
+
+		&:first-child {
+			width: 80px;
+			text-align: right;
+		}
+		&:last-child {
+			width: 80px;
+			text-align: left;
+		}
+	}
+}
+
 .remaining-cards {
 	background-color: var(--color-orange);
 	width: 25%;
