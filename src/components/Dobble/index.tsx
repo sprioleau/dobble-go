@@ -80,6 +80,7 @@ export default function Dobble({ dobble: { deck: initialDeck, symbolsPerCard }, 
 
 		if (gameMode === "ENDED") {
 			if (isGameMusicPlaying && !isGameEndedMusicPlaying) playGameEndedMusic();
+			if (isTimerRunning) pauseTimer();
 		}
 
 		return () => {
