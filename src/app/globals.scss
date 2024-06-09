@@ -54,6 +54,7 @@
 
 ::backdrop {
 	background-color: var(--color-black-65);
+	backdrop-filter: blur(3px);
 }
 
 * {
