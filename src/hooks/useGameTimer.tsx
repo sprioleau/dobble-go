@@ -15,7 +15,14 @@ export default function useGameTimer({
 
 	const [isInFinalSeconds, setIsInFinalSeconds] = useState(false);
 
-	const { seconds, minutes, isRunning, start, pause, resume, restart } = useTimer({
+	const {
+		totalSeconds,
+		isRunning,
+		start,
+		pause,
+		resume,
+		restart: restartTimer,
+	} = useTimer({
 		expiryTimestamp: time,
 		onExpire,
 	});
@@ -27,13 +34,19 @@ export default function useGameTimer({
   */
 	const secondsToPulse = Math.max(Math.floor(0.1 * secondsToExpire), 10);
 
-	if (isRunning && minutes === 0 && seconds < secondsToPulse && !isInFinalSeconds) {
+	if (isRunning && totalSeconds < secondsToPulse && !isInFinalSeconds) {
 		setIsInFinalSeconds(true);
 	}
 
+	function restart() {
+		const newTime = new Date();
+		newTime.setSeconds(newTime.getSeconds() + secondsToExpire);
+		restartTimer(newTime);
+		setIsInFinalSeconds(false);
+	}
+
 	return {
-		seconds,
-		minutes,
+		totalSeconds,
 		isRunning,
 		start,
 		pause,
