@@ -28,18 +28,21 @@ export default function GameActionButtons({
 		<div className={styles["game-action-buttons"]}>
 			<div>
 				<button
+					title={isPaused ? "Play" : "Pause"}
 					className={styles["action-button"]}
 					onClick={onTogglePlayPause}
 				>
 					{isPaused ? <Play /> : <Pause />}
 				</button>
 				<button
+					title={!isSoundOn ? "Unmute" : "Mute"}
 					className={styles["action-button"]}
 					onClick={onToggleSoundOnOff}
 				>
 					{isSoundOn ? <SoundOff /> : <SoundOn />}
 				</button>
 				<button
+					title={!isCardRotationOn ? "Enable Rotation" : "Disable Rotation"}
 					className={styles["action-button"]}
 					onClick={onToggleCardRotationOnOff}
 				>
