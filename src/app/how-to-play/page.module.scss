@@ -5,15 +5,18 @@
 	gap: 2em;
 	padding: 4rem;
 	min-height: 100vh;
+	overflow-y: auto;
 }
 
 .list {
 	max-width: 60ch;
 	counter-reset: item;
+	padding: 0.25rem;
 
 	li {
 		counter-increment: item;
 		position: relative;
+		margin-bottom: 0.5em;
 
 		&::before {
 			content: counter(item) ". ";
@@ -22,12 +25,8 @@
 			-webkit-text-stroke-color: var(--color-black);
 			-webkit-text-stroke-width: 0.1em;
 			position: absolute;
-			font-size: 2.5rem;
-			left: -3.5rem;
-		}
-
-		> span {
-			font-size: 2.5em;
+			font-size: inherit;
+			left: -1.5em;
 		}
 	}
 }
