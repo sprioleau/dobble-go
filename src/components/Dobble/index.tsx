@@ -15,6 +15,7 @@ import useSound from "@/hooks/useSound";
 import generateDobble from "@/utils/generateDobble";
 import getDuplicateItems from "@/utils/getDuplicateItems";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 type GameMode = "PLAYING" | "PAUSED" | "ENDED";
@@ -26,15 +27,17 @@ type Props = {
 
 export default function Dobble({ dobble: { deck: initialDeck, symbolsPerCard }, difficulty }: Props) {
 	const [deck, setDeck] = useState<ReturnType<typeof generateDobble>["deck"]>(initialDeck);
+	const [card1Index, setCard1Index] = useState(0);
+	const [card2Index, setCard2Index] = useState(1);
 	const [score, setScore] = useState(0);
 	const [shouldRotateCards, setShouldRotateCards] = useState(true);
 	const [gameMode, setGameMode] = useState<GameMode>("PLAYING");
+	const router = useRouter();
 
 	// Sounds
 	const {
 		play: playGameMusic,
 		stop: stopGameMusic,
-		togglePlayPause: toggleGameMusic,
 		playing: isGameMusicPlaying,
 	} = useSound("/sounds/game-music.mp3", {
 		initialVolume: 0.5,
@@ -67,6 +70,7 @@ export default function Dobble({ dobble: { deck: initialDeck, symbolsPerCard }, 
 		onExpire: handleEndGame,
 	});
 
+	// Game Mode Listener
 	useEffect(() => {
 		if (gameMode === "PLAYING") {
 			if (!isGameMusicPlaying && isGameEndedMusicPlaying) playGameMusic();
@@ -89,7 +93,7 @@ export default function Dobble({ dobble: { deck: initialDeck, symbolsPerCard }, 
 		};
 	}, [gameMode]);
 
-	const displayedCardIndeces = Object.keys(deck).map(Number).slice(0, 2);
+	const displayedCardIndeces = [card1Index, card2Index];
 	const remainingCards = Object.keys(deck).length - displayedCardIndeces.length;
 	const isSoundOn = isGameMusicPlaying || isGameEndedMusicPlaying;
 
@@ -109,7 +113,7 @@ export default function Dobble({ dobble: { deck: initialDeck, symbolsPerCard }, 
 	}) {
 		if (gameMode === "ENDED") return;
 
-		const [correctImageIndex] = getDuplicateItems([...deck[displayedCardIndeces[0]], ...deck[displayedCardIndeces[1]]]);
+		const [correctImageIndex] = getDuplicateItems([...deck[card1Index], ...deck[card2Index]]);
 
 		if (selectedImageIndex !== correctImageIndex) {
 			playIncorrectSound();
@@ -128,6 +132,19 @@ export default function Dobble({ dobble: { deck: initialDeck, symbolsPerCard }, 
 		// Once match is found, get rid of the card that was clicked
 		setDeck((previousDeck) => {
 			delete previousDeck[selectedCardIndex];
+
+			// Get the index of the next available card
+			const nextAvailableCardIndex = Number(
+				Object.keys(previousDeck).filter((cardIndex) => ![card1Index, card2Index].includes(Number(cardIndex)))[0]
+			);
+
+			// Change out the card on which the symbol was selected
+			if (selectedCardIndex === card1Index) {
+				setCard1Index(nextAvailableCardIndex);
+			} else if (selectedCardIndex === card2Index) {
+				setCard2Index(nextAvailableCardIndex);
+			}
+
 			return previousDeck;
 		});
 	}

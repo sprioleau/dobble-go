@@ -1,4 +1,4 @@
 - [x] Game state does not reset after game is finished to reproduce, play game to end, go back to0 main menu and select "Start"
+- [x] Selcting the correct symbol only changes the card if using the card on the right in the UI
 - [ ] Cards rerender on each user interaction; memoize instead or upgrade to React 19 to use experimental compiler
 - [ ] Symbol images (SVGs) not being cached (may be just during development)
-- [ ] Selcting the correct symbol only changes the card if using the card on the right in the UI
