@@ -1,11 +1,11 @@
 import styles from "./index.module.scss";
 
 type Props = {
-	fontSize: `${number}${"px" | "em" | "rem"}` | number;
 	children: React.ReactNode;
+	fontSize?: `${number}${"px" | "em" | "rem"}` | number;
 };
 
-export default function OutlinedText({ fontSize = "2.75rem", children }: Props) {
+export default function OutlinedText({ children, fontSize = "2.75rem" }: Props) {
 	return (
 		<span
 			className={styles["outlined-text"]}
