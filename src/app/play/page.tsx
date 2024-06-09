@@ -29,7 +29,6 @@ export default function PlayPage({ searchParams }: Props) {
 				dobble={dobble}
 				difficulty={difficulty}
 			/>
-			<BackToMenuPageLink />
 		</main>
 	);
 }
