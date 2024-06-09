@@ -1,16 +1,15 @@
 - [x] Swap out `useSound` hook for one that gives access to `onComplete` option or allows looping
 - [x] Use modulo operator to get a different set of symbols for each game
+- [x] Allow passing in `size` prop to `OutlinedText` component
 - [x] Points
   - [x] Lose points with incorrect answers based on game difficulty
-- [ ] Add Game Timer
+- [x] Add Game Timer
   - [x] Add `GameTimer` component
   - [x] Change time based on difficulty
   - [x] Add ability to pause/resume timer
-  - [ ] consider for score (add as game mode? ... endless vs. challenge?)
+- [x] Game Over screen
+  - [x] Show time remaining?
+  - [x] Show reason for ending game (time expired or matched all cards)?
 - [ ] Leaderboard
   - [ ] Name entry screen on game over
   - [ ] Persist to storage (maybe local and remote)
-- [ ] Game Over screen
-  - [x] Show time remaining?
-  - [ ] Show reason for ending game (time expired or matched all cards)?
-- [ ] Allow passing in `size` prop to `OutlinedText` component
