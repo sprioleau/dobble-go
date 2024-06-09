@@ -1,0 +1,39 @@
+.game-action-buttons {
+	border: var(--border-width) solid var(--color-black);
+	box-shadow: var(--double-drop-shadow);
+	border-top-left-radius: 1.5rem;
+	border-bottom-left-radius: 1.5rem;
+
+	> div {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		border-top-left-radius: 1.3rem;
+		border-bottom-left-radius: 1.3rem;
+		overflow: hidden;
+	}
+}
+
+.action-button {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 1rem;
+	border: none;
+	appearance: none;
+	outline: none;
+	background-color: var(--color-gray);
+	transition: all 0.15s ease-out;
+	color: var(--color-black-65);
+	font-size: 2rem;
+
+	&:hover {
+		background-color: var(--color-blue);
+		color: var(--color-white);
+	}
+
+	&:not(:last-child) {
+		border-bottom: var(--border-width) solid var(--color-black);
+	}
+}
