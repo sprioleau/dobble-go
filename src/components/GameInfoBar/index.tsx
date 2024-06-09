@@ -5,8 +5,7 @@ import Image from "next/image";
 
 type Props = {
 	remainingTime: {
-		minutes: number;
-		seconds: number;
+		totalSeconds: number;
 		isInFinalSeconds: boolean;
 		isRunning: boolean;
 	};
@@ -15,14 +14,18 @@ type Props = {
 };
 
 export default function GameInfoBar({
-	remainingTime: { seconds, minutes, isInFinalSeconds, isRunning },
+	remainingTime: { totalSeconds, isInFinalSeconds, isRunning },
 	remainingCards,
 	score,
 }: Props) {
 	return (
 		<div className={styles["game-info-bar"]}>
 			<div>
-				<section className={styles["remaining-time"]}>
+				<section
+					className={styles["remaining-time"]}
+					data-should-pulse={isInFinalSeconds ? "true" : "false"}
+					data-is-paused={isRunning ? "false" : "true"}
+				>
 					<span>
 						<Image
 							src="/images/clock.svg"
@@ -31,17 +34,7 @@ export default function GameInfoBar({
 							height={68}
 						/>
 					</span>
-					<OutlinedText>
-						<span
-							className={styles["timer"]}
-							data-should-pulse={isInFinalSeconds ? "true" : "false"}
-							data-is-paused={isRunning ? "false" : "true"}
-						>
-							<span>{`${String(minutes).padStart(2, "0")}`}</span>
-							<span>:</span>
-							<span>{`${String(seconds).padStart(2, "0")}`}</span>
-						</span>
-					</OutlinedText>
+					<OutlinedText>{totalSeconds}</OutlinedText>
 				</section>
 				<section className={styles["remaining-cards"]}>
 					<span>

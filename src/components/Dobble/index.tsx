@@ -15,7 +15,6 @@ import useSound from "@/hooks/useSound";
 import generateDobble from "@/utils/generateDobble";
 import getDuplicateItems from "@/utils/getDuplicateItems";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 type GameMode = "PLAYING" | "PAUSED" | "ENDED";
@@ -32,7 +31,6 @@ export default function Dobble({ dobble: { deck: initialDeck, symbolsPerCard }, 
 	const [score, setScore] = useState(0);
 	const [shouldRotateCards, setShouldRotateCards] = useState(true);
 	const [gameMode, setGameMode] = useState<GameMode>("PLAYING");
-	const router = useRouter();
 
 	// Sounds
 	const {
@@ -58,8 +56,7 @@ export default function Dobble({ dobble: { deck: initialDeck, symbolsPerCard }, 
 
 	// Game Timer
 	const {
-		seconds,
-		minutes,
+		totalSeconds,
 		isRunning: isTimerRunning,
 		isInFinalSeconds,
 		start: startTimer,
@@ -154,11 +151,7 @@ export default function Dobble({ dobble: { deck: initialDeck, symbolsPerCard }, 
 	}
 
 	function handleRestartGame() {
-		// Setup new game timer
-		const time = new Date();
-		time.setSeconds(time.getSeconds() + GAME_OPTIONS.DIFFICULTY[difficulty].DURATION_SECONDS);
-		restartTimer(time);
-
+		restartTimer();
 		setDeck(generateDobble({ symbolsPerCard }).deck);
 		setGameMode("PLAYING");
 		stopGameEndedMusic();
@@ -235,8 +228,7 @@ export default function Dobble({ dobble: { deck: initialDeck, symbolsPerCard }, 
 			<footer className={styles["game-info-bar"]}>
 				<GameInfoBar
 					remainingTime={{
-						seconds,
-						minutes,
+						totalSeconds,
 						isRunning: isTimerRunning,
 						isInFinalSeconds,
 					}}
