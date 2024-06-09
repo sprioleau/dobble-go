@@ -216,7 +216,12 @@ export default function Dobble({ dobble: { deck: initialDeck, symbolsPerCard }, 
 				</ul>
 			)}
 			{gameMode === "PAUSED" && <OutlinedText>Paused</OutlinedText>}
-			{gameMode === "ENDED" && <GameEndedScreen restart={handleRestartGame} />}
+			{gameMode === "ENDED" && (
+				<GameEndedScreen
+					shouldDisplayTimeExpiredMessage={totalSeconds <= 0}
+					restart={handleRestartGame}
+				/>
+			)}
 			<aside className={styles["game-action-buttons"]}>
 				<GameActionButtons
 					isPaused={!isTimerRunning}
