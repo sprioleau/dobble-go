@@ -13,10 +13,11 @@ type Props = {
 		selectedCardIndex: number;
 		selectedImageIndex: number;
 	}) => void;
+	shouldRotate?: boolean;
 	isMenuCard?: boolean;
 };
 
-export default function Card({ cardIndex, card, onSelectSymbol, isMenuCard = false }: Props) {
+export default function Card({ cardIndex, card, onSelectSymbol, shouldRotate = true, isMenuCard = false }: Props) {
 	const { difficulty } = useDifficulty();
 	const { IMAGE_TRANSFORMS } = GAME_OPTIONS.DIFFICULTY[!isMenuCard ? difficulty : "INTERMEDIATE"];
 
@@ -24,6 +25,7 @@ export default function Card({ cardIndex, card, onSelectSymbol, isMenuCard = fal
 		<div className={styles["card-container"]}>
 			<ul
 				className={styles["card"]}
+				data-should-rotate={shouldRotate ? "true" : "false"}
 				style={
 					{
 						"--card-rotation": (cardIndex % 2 === 0 ? -46 : 28) + "deg",

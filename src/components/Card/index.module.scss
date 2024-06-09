@@ -26,6 +26,10 @@
 	position: absolute;
 	transform: rotate(var(--card-rotation));
 	animation: spin 40s linear infinite;
+
+	&[data-should-rotate="false"] {
+		animation-play-state: paused;
+	}
 }
 
 .symbol-image-container {
