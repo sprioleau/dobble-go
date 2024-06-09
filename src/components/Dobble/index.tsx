@@ -4,20 +4,20 @@
 import styles from "./index.module.scss";
 
 import Card from "@/components/Card";
+import GameActionButtons from "@/components/GameActionButtons";
 import GameEndedScreen from "@/components/GameEndedScreen";
-import RadioGroup from "@/components/RadioGroup";
-import SoundOff from "@/components/SoundOff";
-import SoundOn from "@/components/SoundOn";
+import GameInfoBar from "@/components/GameInfoBar";
+import Logo from "@/components/Logo";
+import OutlinedText from "@/components/OutlinedText";
 import { GAME_OPTIONS } from "@/constants/gameOptions";
+import useGameTimer from "@/hooks/useGameTimer";
 import useSound from "@/hooks/useSound";
 import generateDobble from "@/utils/generateDobble";
 import getDuplicateItems from "@/utils/getDuplicateItems";
-import { useCallback, useEffect, useState } from "react";
-import Logo from "@/components/Logo";
-import useGameTimer from "@/hooks/useGameTimer";
-import GameInfoBar from "../GameInfoBar";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 
-type GameMode = "PLAYING" | "ENDED";
+type GameMode = "PLAYING" | "PAUSED" | "ENDED";
 
 type Props = {
 	dobble: ReturnType<typeof generateDobble>;
@@ -27,6 +27,7 @@ type Props = {
 export default function Dobble({ dobble: { deck: initialDeck, symbolsPerCard }, difficulty }: Props) {
 	const [deck, setDeck] = useState<ReturnType<typeof generateDobble>["deck"]>(initialDeck);
 	const [score, setScore] = useState(0);
+	const [shouldRotateCards, setShouldRotateCards] = useState(true);
 	const [gameMode, setGameMode] = useState<GameMode>("PLAYING");
 
 	// Sounds
@@ -43,7 +44,6 @@ export default function Dobble({ dobble: { deck: initialDeck, symbolsPerCard }, 
 	const {
 		play: playGameEndedMusic,
 		stop: stopGameEndedMusic,
-		togglePlayPause: toggleGameEndedMusic,
 		playing: isGameEndedMusicPlaying,
 	} = useSound("/sounds/game-ended.mp3", {
 		initialVolume: 0.5,
@@ -53,31 +53,33 @@ export default function Dobble({ dobble: { deck: initialDeck, symbolsPerCard }, 
 	const { play: playCorrectSound } = useSound("/sounds/correct.mp3");
 	const { play: playIncorrectSound } = useSound("/sounds/incorrect.mp3");
 
-	const handleEndGame = useCallback(() => {
-		setGameMode("ENDED");
-		stopGameMusic();
-		playGameEndedMusic();
-	}, []);
-
 	// Game Timer
 	const {
 		seconds,
 		minutes,
-		isRunning,
+		isRunning: isTimerRunning,
 		isInFinalSeconds,
+		start: startTimer,
+		pause: pauseTimer,
 		restart: restartTimer,
 	} = useGameTimer({
 		secondsToExpire: GAME_OPTIONS.DIFFICULTY[difficulty].DURATION_SECONDS,
-		// onExpire: handleEndGame,
+		onExpire: handleEndGame,
 	});
 
 	useEffect(() => {
-		if (gameMode === "PLAYING" && !isGameMusicPlaying && isGameEndedMusicPlaying) {
-			playGameMusic();
+		if (gameMode === "PLAYING") {
+			if (!isGameMusicPlaying && isGameEndedMusicPlaying) playGameMusic();
+			if (!isTimerRunning) startTimer();
 		}
 
-		if (gameMode === "ENDED" && isGameMusicPlaying && !isGameEndedMusicPlaying) {
-			playGameEndedMusic();
+		if (gameMode === "PAUSED") {
+			if (!isGameMusicPlaying && isGameEndedMusicPlaying) playGameMusic();
+			if (isTimerRunning) pauseTimer();
+		}
+
+		if (gameMode === "ENDED") {
+			if (isGameMusicPlaying && !isGameEndedMusicPlaying) playGameEndedMusic();
 		}
 
 		return () => {
@@ -85,18 +87,6 @@ export default function Dobble({ dobble: { deck: initialDeck, symbolsPerCard }, 
 			stopGameEndedMusic();
 		};
 	}, [gameMode]);
-
-	function restart() {
-		const time = new Date();
-		time.setSeconds(time.getSeconds() + GAME_OPTIONS.DIFFICULTY[difficulty].DURATION_SECONDS);
-		restartTimer(time);
-
-		setDeck(generateDobble({ symbolsPerCard }).deck);
-		setGameMode("PLAYING");
-		stopGameEndedMusic();
-		playGameMusic();
-		setScore(0);
-	}
 
 	const displayedCardIndeces = Object.keys(deck).map(Number).slice(0, 2);
 	const remainingCards = Object.keys(deck).length - displayedCardIndeces.length;
@@ -140,49 +130,78 @@ export default function Dobble({ dobble: { deck: initialDeck, symbolsPerCard }, 
 		});
 	}
 
+	function handleEndGame() {
+		setGameMode("ENDED");
+	}
+
+	function handleRestartGame() {
+		// Setup new game timer
+		const time = new Date();
+		time.setSeconds(time.getSeconds() + GAME_OPTIONS.DIFFICULTY[difficulty].DURATION_SECONDS);
+		restartTimer(time);
+
+		setDeck(generateDobble({ symbolsPerCard }).deck);
+		setGameMode("PLAYING");
+		stopGameEndedMusic();
+		playGameMusic();
+		setScore(0);
+	}
+
+	function handleTogglePlayPause() {
+		setGameMode((previousGameMode) => (previousGameMode === "PLAYING" ? "PAUSED" : "PLAYING"));
+	}
+
+	function handleToggleShouldRotateCards() {
+		setShouldRotateCards((previousShouldRotateCards) => !previousShouldRotateCards);
+	}
+
+	const isSoundOn = isGameMusicPlaying || isGameEndedMusicPlaying;
+
 	return (
-		<>
+		<div className={styles["dobble"]}>
 			<header className={styles["header"]}>
-				<Logo width={350} />
-				<RadioGroup
-					// prettier-ignore
-					options={[
-						{ label: <SoundOn />, value: "on", },
-						{ label: <SoundOff />, value: "off", },
-					]}
-					activeValue={isGameMusicPlaying || isGameEndedMusicPlaying ? "on" : "off"}
-					onChange={() => (gameMode === "PLAYING" ? toggleGameMusic() : toggleGameEndedMusic())}
-				/>
+				<Link href="/">
+					<Logo width={350} />
+				</Link>
 			</header>
-			{gameMode === "ENDED" ? (
-				<GameEndedScreen restart={restart} />
-			) : (
-				<>
-					<ul className={styles["cards"]}>
-						{displayedCardIndeces.map((cardIndex) => (
-							<li key={cardIndex}>
-								<Card
-									cardIndex={cardIndex}
-									card={deck[cardIndex]}
-									onSelectSymbol={handleClick}
-								/>
-							</li>
-						))}
-					</ul>
-					<footer>
-						<GameInfoBar
-							remainingTime={{
-								seconds,
-								minutes,
-								isRunning,
-								isInFinalSeconds,
-							}}
-							remainingCards={remainingCards}
-							score={score}
-						/>
-					</footer>
-				</>
+			{gameMode === "PLAYING" && (
+				<ul className={styles["cards"]}>
+					{displayedCardIndeces.map((cardIndex) => (
+						<li key={cardIndex}>
+							<Card
+								cardIndex={cardIndex}
+								card={deck[cardIndex]}
+								onSelectSymbol={handleClick}
+								shouldRotate={shouldRotateCards}
+							/>
+						</li>
+					))}
+				</ul>
 			)}
-		</>
+			{gameMode === "PAUSED" && <OutlinedText>Paused</OutlinedText>}
+			{gameMode === "ENDED" && <GameEndedScreen restart={handleRestartGame} />}
+			<aside className={styles["game-action-buttons"]}>
+				<GameActionButtons
+					isPaused={!isTimerRunning}
+					isSoundOn={isSoundOn}
+					isCardRotationOn={shouldRotateCards}
+					onTogglePlayPause={handleTogglePlayPause}
+					onToggleSoundOnOff={toggleGameMusic}
+					onToggleCardRotationOnOff={handleToggleShouldRotateCards}
+				/>
+			</aside>
+			<footer className={styles["game-info-bar"]}>
+				<GameInfoBar
+					remainingTime={{
+						seconds,
+						minutes,
+						isRunning: isTimerRunning,
+						isInFinalSeconds,
+					}}
+					remainingCards={remainingCards}
+					score={score}
+				/>
+			</footer>
+		</div>
 	);
 }
