@@ -91,6 +91,7 @@ export default function Dobble({ dobble: { deck: initialDeck, symbolsPerCard }, 
 
 	const displayedCardIndeces = Object.keys(deck).map(Number).slice(0, 2);
 	const remainingCards = Object.keys(deck).length - displayedCardIndeces.length;
+	const isSoundOn = isGameMusicPlaying || isGameEndedMusicPlaying;
 
 	useEffect(() => {
 		if (remainingCards === 0) {
@@ -124,7 +125,7 @@ export default function Dobble({ dobble: { deck: initialDeck, symbolsPerCard }, 
 		setScore((s) => s + 1);
 		playCorrectSound();
 
-		// Once match is found, get rid of the card that was clickedz
+		// Once match is found, get rid of the card that was clicked
 		setDeck((previousDeck) => {
 			delete previousDeck[selectedCardIndex];
 			return previousDeck;
@@ -152,11 +153,26 @@ export default function Dobble({ dobble: { deck: initialDeck, symbolsPerCard }, 
 		setGameMode((previousGameMode) => (previousGameMode === "PLAYING" ? "PAUSED" : "PLAYING"));
 	}
 
+	function handleToggleSoundOnOff() {
+		if (isSoundOn) {
+			// Mute all music
+			stopGameMusic();
+			stopGameEndedMusic();
+			return;
+		}
+
+		if (!isGameMusicPlaying && gameMode === "PLAYING") {
+			playGameMusic();
+		}
+
+		if (!isGameEndedMusicPlaying && gameMode === "ENDED") {
+			playGameEndedMusic();
+		}
+	}
+
 	function handleToggleShouldRotateCards() {
 		setShouldRotateCards((previousShouldRotateCards) => !previousShouldRotateCards);
 	}
-
-	const isSoundOn = isGameMusicPlaying || isGameEndedMusicPlaying;
 
 	return (
 		<div className={styles["dobble"]}>
@@ -190,7 +206,7 @@ export default function Dobble({ dobble: { deck: initialDeck, symbolsPerCard }, 
 					isSoundOn={isSoundOn}
 					isCardRotationOn={shouldRotateCards}
 					onTogglePlayPause={handleTogglePlayPause}
-					onToggleSoundOnOff={toggleGameMusic}
+					onToggleSoundOnOff={handleToggleSoundOnOff}
 					onToggleCardRotationOnOff={handleToggleShouldRotateCards}
 				/>
 			</aside>
