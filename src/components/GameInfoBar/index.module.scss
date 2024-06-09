@@ -7,7 +7,6 @@
 	border-top-left-radius: 1.5rem;
 	border-top-right-radius: 1.5rem;
 	background-color: var(--color-black);
-	transform: translateY(calc(var(--gameplay-padding) + 2 * var(--border-width)));
 
 	> div {
 		display: flex;
