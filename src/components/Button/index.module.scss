@@ -5,7 +5,13 @@
 	padding: 1em 2em;
 	box-shadow: var(--double-drop-shadow);
 	appearance: none;
-	outline: none;
+	position: relative;
+	outline: var(--border-width) solid transparent;
+	outline-offset: calc(2 * var(--border-width));
+
+	&:focus {
+		outline-color: var(--color-blue);
+	}
 
 	// Override OutlinedText styles
 	> span {

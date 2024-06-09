@@ -161,7 +161,10 @@ export default function Dobble({ dobble: { deck: initialDeck, symbolsPerCard }, 
 	return (
 		<div className={styles["dobble"]}>
 			<header className={styles["header"]}>
-				<Link href="/">
+				<Link
+					href="/"
+					className={styles["back-to-menu-link"]}
+				>
 					<Logo width={350} />
 				</Link>
 			</header>

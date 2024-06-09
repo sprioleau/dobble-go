@@ -18,6 +18,16 @@
 	gap: 1em;
 }
 
+.back-to-menu-link {
+	border-radius: 0.5em;
+	outline: var(--border-width) solid transparent;
+	outline-offset: calc(2 * var(--border-width));
+
+	&:focus {
+		outline-color: var(--color-blue);
+	}
+}
+
 .cards {
 	display: flex;
 	gap: 2em;
