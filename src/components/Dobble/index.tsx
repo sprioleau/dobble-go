@@ -70,6 +70,7 @@ export default function Dobble({ dobble: { deck: initialDeck, symbolsPerCard }, 
 	// Game Mode Listener
 	useEffect(() => {
 		if (gameMode === "PLAYING") {
+			// TODO: Track when player selects mute music button and use their preference
 			if (!isGameMusicPlaying && isGameEndedMusicPlaying) playGameMusic();
 			if (!isTimerRunning) startTimer();
 		}
