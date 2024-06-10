@@ -3,6 +3,7 @@ import styles from "./page.module.scss";
 import Logo from "@/components/Logo";
 import Menu from "@/components/Menu";
 import MenuCard from "@/components/MenuCard";
+import { Suspense } from "react";
 
 export default function HomePage() {
 	return (
@@ -20,7 +21,9 @@ export default function HomePage() {
 				<Menu />
 			</section>
 			<aside className={styles["card"]}>
-				<MenuCard />
+				<Suspense>
+					<MenuCard />
+				</Suspense>
 			</aside>
 		</main>
 	);
