@@ -19,7 +19,10 @@ export default function HowToPlayPage() {
 			className={styles.main}
 			data-background="pink"
 		>
-			<Link href="/">
+			<Link
+				href="/"
+				className={styles["logo"]}
+			>
 				<Logo width={350} />
 			</Link>
 			<ol className={styles.list}>

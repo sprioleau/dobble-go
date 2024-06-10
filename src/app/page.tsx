@@ -19,7 +19,7 @@ export default function HomePage() {
 				</header>
 				<Menu />
 			</section>
-			<aside>
+			<aside className={styles["card"]}>
 				<MenuCard />
 			</aside>
 		</main>

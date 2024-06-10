@@ -6,12 +6,31 @@
 	padding: 4rem;
 	min-height: 100vh;
 	overflow-y: auto;
+
+	@media (max-width: 800px) {
+		padding: 2rem;
+	}
+}
+
+.logo {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	animation: float 4s ease-in-out infinite;
+
+	@media (max-width: 800px) {
+		img {
+			width: 90%;
+			height: unset;
+		}
+	}
 }
 
 .list {
 	max-width: 60ch;
 	counter-reset: item;
 	padding: 0.25rem;
+	padding-left: 3rem;
 
 	li {
 		counter-increment: item;

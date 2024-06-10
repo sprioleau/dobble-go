@@ -26,6 +26,15 @@
 	hyphens: manual;
 	text-align: center;
 
+	@media (max-width: 800px) {
+		padding: 0.75rem;
+
+		img {
+			width: unset;
+			height: unset;
+		}
+	}
+
 	&:has(input:checked) {
 		color: var(--color-white);
 	}

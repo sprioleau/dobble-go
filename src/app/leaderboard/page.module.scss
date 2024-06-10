@@ -13,6 +13,28 @@
 		align-items: center;
 		justify-content: center;
 		gap: 1em;
+		padding: 0 1em;
+	}
+}
+
+.title {
+	@media (max-width: 800px) {
+		span {
+			font-size: 2rem;
+		}
+	}
+}
+
+.logo {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	@media (max-width: 800px) {
+		img {
+			width: 90%;
+			height: unset;
+		}
 	}
 }
 

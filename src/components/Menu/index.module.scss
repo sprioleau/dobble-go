@@ -4,6 +4,14 @@
 	gap: 0.5em;
 	text-align: center;
 	font-size: 2.75rem;
+
+	@media (max-width: 800px) {
+		gap: 0.125em;
+
+		span {
+			font-size: 2rem;
+		}
+	}
 }
 
 .menu-item {
@@ -80,9 +88,9 @@
 
 .background-option {
 	display: flex;
-	width: 120px;
+	flex: 1;
 	aspect-ratio: 1 / 1;
-	border-radius: 0.5em;
+	border-radius: 0.25em;
 	background-blend-mode: multiply;
 	border: var(--border-width) solid var(--color-black);
 	background-size: contain;

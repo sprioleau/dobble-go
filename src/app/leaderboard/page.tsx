@@ -11,11 +11,14 @@ export default function LeaderboardPage() {
 			className={styles.main}
 			data-background="yellow"
 		>
-			<Link href="/">
+			<Link
+				href="/"
+				className={styles["logo"]}
+			>
 				<Logo width={350} />
 			</Link>
 			<section>
-				<h1>
+				<h1 className={styles["title"]}>
 					<OutlinedText>Leaderboard</OutlinedText>
 				</h1>
 				<LeaderboardScreen />

@@ -8,7 +8,17 @@
 }
 
 .logo {
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	animation: float 4s ease-in-out infinite;
+
+	@media (max-width: 800px) {
+		img {
+			width: 90%;
+			height: unset;
+		}
+	}
 }
 
 .section {
@@ -17,6 +27,12 @@
 	align-items: center;
 	justify-content: center;
 	gap: 2em;
+}
+
+.card {
+	@media (max-width: 800px) {
+		display: none;
+	}
 }
 
 @keyframes float {
