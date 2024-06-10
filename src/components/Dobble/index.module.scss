@@ -3,12 +3,16 @@
 	flex-direction: column;
 	align-items: center;
 	justify-content: space-between;
-	gap: 2em;
+	gap: 2rem;
 	padding-top: var(--gameplay-padding);
 	min-height: 100vh;
 	width: 100%;
 	overflow: hidden;
 	position: relative;
+
+	@media (max-width: 800px) {
+		gap: 0.5rem;
+	}
 }
 
 .header {
@@ -18,7 +22,19 @@
 	gap: 1em;
 }
 
+.logo {
+	width: 100%;
+
+	@media (max-width: 800px) {
+		width: 200px;
+		height: unset;
+	}
+}
+
 .back-to-menu-link {
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	border-radius: 0.5em;
 	outline: var(--border-width) solid transparent;
 	outline-offset: calc(2 * var(--border-width));
@@ -30,7 +46,14 @@
 
 .cards {
 	display: flex;
+	align-items: center;
+	justify-content: center;
 	gap: 2em;
+
+	@media (max-width: 800px) {
+		flex-direction: column;
+		gap: 1em;
+	}
 }
 
 .game-action-buttons {
@@ -42,4 +65,9 @@
 
 .game-info-bar {
 	transform: translateY(calc(2 * var(--border-width)));
+
+	@media (max-width: 800px) {
+		width: 100%;
+		transform: none;
+	}
 }

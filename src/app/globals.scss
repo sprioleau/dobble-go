@@ -45,6 +45,10 @@
 	--double-drop-shadow: 16px 16px 0px rgb(8, 23, 50, 0.25), 8px 8px 0px rgb(8, 23, 50, 1);
 
 	--gameplay-padding: 4rem;
+
+	@media (max-width: 800px) {
+		--gameplay-padding: 1.5rem;
+	}
 }
 
 ::selection {

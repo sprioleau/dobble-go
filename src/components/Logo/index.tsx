@@ -2,6 +2,7 @@ import Image from "next/image";
 
 type Props = {
 	width?: number;
+	className?: string;
 };
 
 const INTRINSIC_DIMENSIONS = {
@@ -9,11 +10,12 @@ const INTRINSIC_DIMENSIONS = {
 	HEIGHT: 254,
 };
 
-export default function Logo({ width = 514 }: Props) {
+export default function Logo({ width = 514, className }: Props) {
 	const intrinsicAspectRatio = INTRINSIC_DIMENSIONS.WIDTH / INTRINSIC_DIMENSIONS.HEIGHT;
 
 	return (
 		<Image
+			className={className}
 			src="/images/logo.svg"
 			alt="Dobble Go Logo"
 			width={width}

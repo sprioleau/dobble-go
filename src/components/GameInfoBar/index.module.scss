@@ -1,12 +1,21 @@
 .game-info-bar {
 	margin: 0 auto;
-	width: 55vw;
+	width: 70vw;
 	max-width: 650px;
 	border: var(--border-width) solid var(--color-black);
 	box-shadow: var(--double-drop-shadow);
 	border-top-left-radius: 1.5rem;
 	border-top-right-radius: 1.5rem;
 	background-color: var(--color-black);
+
+	@media (max-width: 800px) {
+		width: 100%;
+		max-width: unset;
+		border-radius: 0;
+		border-left: none;
+		border-right: none;
+		border-bottom: none;
+	}
 
 	> div {
 		display: flex;
@@ -15,6 +24,10 @@
 		border-top-left-radius: 1.3rem;
 		border-top-right-radius: 1.3rem;
 		overflow: hidden;
+
+		@media (max-width: 800px) {
+			border-radius: 0;
+		}
 	}
 
 	section {
@@ -26,12 +39,32 @@
 		text-align: right;
 		flex: 1;
 
+		@media (max-width: 800px) {
+			padding: 0.5rem;
+
+			img {
+				width: 2.5em;
+				height: unset;
+			}
+		}
+
 		&:not(:last-child) {
 			border-right: var(--border-width) solid var(--color-black);
 		}
 
+		> span:first-child {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
 		> span:last-child {
 			width: 5.375rem;
+
+			@media (max-width: 800px) {
+				font-size: 1.5rem;
+				width: unset;
+			}
 		}
 	}
 }

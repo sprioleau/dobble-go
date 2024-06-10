@@ -191,7 +191,10 @@ export default function Dobble({ dobble: { deck: initialDeck, symbolsPerCard }, 
 					href="/"
 					className={styles["back-to-menu-link"]}
 				>
-					<Logo width={350} />
+					<Logo
+						width={350}
+						className={styles["logo"]}
+					/>
 				</Link>
 			</header>
 			{gameMode === "PLAYING" && (

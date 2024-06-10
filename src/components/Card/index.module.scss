@@ -5,7 +5,7 @@
 	outline: var(--border-width) solid var(--color-black);
 	box-shadow: var(--double-drop-shadow);
 	border-radius: 50%;
-	width: 25vw;
+	width: max(250px, 25vw);
 	max-width: 500px;
 	aspect-ratio: 1 / 1;
 	container-type: inline-size;

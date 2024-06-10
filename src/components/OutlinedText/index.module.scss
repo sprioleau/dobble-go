@@ -8,4 +8,8 @@
 	text-transform: uppercase;
 	letter-spacing: -0.05em;
 	cursor: inherit;
+
+	@media (max-width: 800px) {
+		font-size: calc(0.8 * var(--font-size));
+	}
 }
