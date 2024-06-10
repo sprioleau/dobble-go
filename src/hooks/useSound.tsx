@@ -5,7 +5,7 @@ export default function useSound(src: string, options?: AudioLoadOptions) {
 	const audioPlayer = useAudioPlayer();
 
 	useEffect(() => {
-		audioPlayer.load(src, options);
+		audioPlayer.load(src, { html5: true, ...options });
 		return () => audioPlayer.cleanup();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
