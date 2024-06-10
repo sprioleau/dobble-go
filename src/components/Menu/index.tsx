@@ -3,17 +3,19 @@
 import styles from "./index.module.scss";
 
 import OutlinedText from "@/components/OutlinedText";
-import useSound from "@/hooks/useSound";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
 import RadioGroup from "@/components/RadioGroup";
+import { GAME_OPTIONS } from "@/constants/gameOptions";
+import useSound from "@/hooks/useSound";
 import Image from "next/image";
+import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
+
+export type BackgroundColor = "orange" | "blue" | "pink";
 
 export default function Menu() {
 	const dialogRef = useRef<HTMLDialogElement>(null);
-	const router = useRouter();
-	const [difficulty, setDifficulty] = useState("beginner");
+	const [difficulty, setDifficulty] = useState<keyof typeof GAME_OPTIONS.DIFFICULTY>("BEGINNER");
+	const [backgroundColor, setBackgroundColor] = useState<BackgroundColor>("orange");
 
 	// Sounds
 	const { play: playStartGameSound } = useSound("/sounds/start-game.mp3");
@@ -37,8 +39,14 @@ export default function Menu() {
 		dialogRef.current?.close();
 	}
 
-	function handleDifficultyChange(value: string) {
+	function handleDifficultyChange(value: keyof typeof GAME_OPTIONS.DIFFICULTY) {
+		playMenuNavigateSound();
 		setDifficulty(value);
+	}
+
+	function handleBackgroundChange(value: BackgroundColor) {
+		playMenuNavigateSound();
+		setBackgroundColor(value);
 	}
 
 	return (
@@ -51,7 +59,13 @@ export default function Menu() {
 					>
 						<Link
 							onClick={handleStartGame}
-							href={`/play?difficulty=${difficulty}`}
+							href={{
+								pathname: "/play",
+								query: {
+									difficulty: difficulty.toLowerCase(),
+									background: backgroundColor,
+								},
+							}}
 						>
 							<OutlinedText>Start</OutlinedText>
 						</Link>
@@ -95,41 +109,80 @@ export default function Menu() {
 						<OutlinedText>Options</OutlinedText>
 					</h1>
 
-					<section>
-						<h2>Difficulty</h2>
-						<RadioGroup
-							onChange={handleDifficultyChange}
-							activeValue={difficulty}
-							options={[
-								{
-									label: (
-										<>
-											<Image
-												src="/images/difficulty-beginner.svg"
-												alt="beginner difficulty icon"
-												width={100}
-												height={100}
+					<div className={styles["options"]}>
+						<section>
+							<OutlinedText fontSize={"1.75rem"}>Difficulty</OutlinedText>
+							<RadioGroup<keyof typeof GAME_OPTIONS.DIFFICULTY>
+								onChange={handleDifficultyChange}
+								activeValue={difficulty}
+								options={[
+									{
+										label: (
+											<>
+												<Image
+													src="/images/difficulty-beginner.svg"
+													alt="beginner difficulty icon"
+													width={100}
+													height={100}
+												/>
+											</>
+										),
+										value: "BEGINNER",
+									},
+									{
+										label: (
+											<>
+												<Image
+													src="/images/difficulty-intermediate.svg"
+													alt="intermediate difficulty icon"
+													width={100}
+													height={100}
+												/>
+											</>
+										),
+										value: "INTERMEDIATE",
+									},
+								]}
+							/>
+						</section>
+
+						<section>
+							<OutlinedText fontSize={"1.75rem"}>Game Background</OutlinedText>
+							<RadioGroup<BackgroundColor>
+								onChange={handleBackgroundChange}
+								activeValue={backgroundColor}
+								options={[
+									{
+										label: (
+											<div
+												className={styles["background-option"]}
+												data-color="orange"
 											/>
-										</>
-									),
-									value: "beginner",
-								},
-								{
-									label: (
-										<>
-											<Image
-												src="/images/difficulty-intermediate.svg"
-												alt="intermediate difficulty icon"
-												width={100}
-												height={100}
+										),
+										value: "orange",
+									},
+									{
+										label: (
+											<div
+												className={styles["background-option"]}
+												data-color="blue"
 											/>
-										</>
-									),
-									value: "intermediate",
-								},
-							]}
-						/>
-					</section>
+										),
+										value: "blue",
+									},
+									{
+										label: (
+											<div
+												className={styles["background-option"]}
+												data-color="pink"
+											/>
+										),
+										value: "pink",
+									},
+								]}
+							/>
+						</section>
+					</div>
 
 					<button
 						className={styles["close-button"]}

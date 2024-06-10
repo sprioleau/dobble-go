@@ -61,12 +61,42 @@
 	padding: 2.5rem;
 	margin: auto;
 	border-radius: 1rem;
+	background-color: var(--color-white);
 }
 
 .options-modal-wrapper {
 	display: flex;
 	flex-direction: column;
-	gap: 1rem;
+	gap: 2rem;
+}
+
+.options {
+	display: flex;
+	flex-direction: column;
+	gap: 2rem;
+}
+
+.background-option {
+	display: flex;
+	width: 120px;
+	aspect-ratio: 1 / 1;
+	border-radius: 0.5em;
+	background-blend-mode: multiply;
+	border: var(--border-width) solid var(--color-black);
+	background-size: contain;
+
+	&[data-color="orange"] {
+		background-image: url("/images/backgrounds/orange.svg");
+		background-color: var(--color-orange);
+	}
+	&[data-color="blue"] {
+		background-image: url("/images/backgrounds/blue.svg");
+		background-color: var(--color-blue);
+	}
+	&[data-color="pink"] {
+		background-image: url("/images/backgrounds/pink.svg");
+		background-color: var(--color-pink);
+	}
 }
 
 .close-button {
