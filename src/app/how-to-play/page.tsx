@@ -1,7 +1,8 @@
-import Logo from "@/components/Logo";
 import styles from "./page.module.scss";
+
+import Logo from "@/components/Logo";
 import OutlinedText from "@/components/OutlinedText";
-import BackToMenuPageLink from "@/components/BackToMenuPageLink";
+import Link from "next/link";
 
 const instructions = [
 	"Find the symbol that exists on both cards. There is only 1.",
@@ -18,7 +19,12 @@ export default function HowToPlayPage() {
 			className={styles.main}
 			data-background="pink"
 		>
-			<Logo />
+			<Link
+				href="/"
+				className={styles["back-to-menu-link"]}
+			>
+				<Logo width={350} />
+			</Link>
 			<ol className={styles.list}>
 				{instructions.map((instruction) => (
 					<li
@@ -29,7 +35,6 @@ export default function HowToPlayPage() {
 					</li>
 				))}
 			</ol>
-			<BackToMenuPageLink />
 		</main>
 	);
 }
