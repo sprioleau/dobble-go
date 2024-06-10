@@ -19,10 +19,7 @@ export default function HowToPlayPage() {
 			className={styles.main}
 			data-background="pink"
 		>
-			<Link
-				href="/"
-				className={styles["back-to-menu-link"]}
-			>
+			<Link href="/">
 				<Logo width={350} />
 			</Link>
 			<ol className={styles.list}>

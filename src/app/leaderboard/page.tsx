@@ -1,8 +1,9 @@
 import styles from "./page.module.scss";
 
-import BackToMenuPageLink from "@/components/BackToMenuPageLink";
 import LeaderboardScreen from "@/components/LeaderboardScreen";
+import Logo from "@/components/Logo";
 import OutlinedText from "@/components/OutlinedText";
+import Link from "next/link";
 
 export default function LeaderboardPage() {
 	return (
@@ -10,11 +11,16 @@ export default function LeaderboardPage() {
 			className={styles.main}
 			data-background="yellow"
 		>
-			<h1>
-				<OutlinedText>Leaderboard</OutlinedText>
-			</h1>
-			<LeaderboardScreen />
-			<BackToMenuPageLink />
+			<Link href="/">
+				<Logo width={350} />
+			</Link>
+			<section>
+				<h1>
+					<OutlinedText>Leaderboard</OutlinedText>
+				</h1>
+				<LeaderboardScreen />
+			</section>
+			<div className={styles["spacer"]} />
 		</main>
 	);
 }
