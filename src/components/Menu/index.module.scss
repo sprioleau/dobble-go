@@ -58,16 +58,18 @@
 }
 
 .options-modal {
-	padding: 2.5rem;
 	margin: auto;
 	border-radius: 1rem;
 	background-color: var(--color-white);
+	position: relative;
+	z-index: 1;
 }
 
 .options-modal-wrapper {
 	display: flex;
 	flex-direction: column;
 	gap: 2rem;
+	padding: 2.5rem;
 }
 
 .options {

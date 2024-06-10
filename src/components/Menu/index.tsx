@@ -27,6 +27,17 @@ export default function Menu() {
 		return () => stopMenuMusic();
 	}, [playMenuMusic, stopMenuMusic]);
 
+	useEffect(() => {
+		if (!dialogRef.current) return;
+
+		function dismissOnOutsideClick(event: MouseEvent) {
+			if (event.target !== dialogRef.current) return;
+			handleCloseOptionsModal();
+		}
+
+		dialogRef.current.addEventListener("click", dismissOnOutsideClick);
+	}, [dialogRef]);
+
 	function handleStartGame() {
 		playStartGameSound();
 	}
