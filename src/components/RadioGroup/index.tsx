@@ -1,17 +1,17 @@
 import styles from "./index.module.scss";
 
-type Props = {
+type Props<TValue> = {
 	options: {
-		value: string;
+		value: TValue;
 		label?: React.ReactNode;
 	}[];
-	activeValue: string;
-	onChange: (value: string) => void;
+	activeValue: TValue;
+	onChange: (value: TValue) => void;
 };
 
-export default function RadioGroup({ options, activeValue, onChange }: Props) {
+export default function RadioGroup<TValue extends string>({ options, activeValue, onChange }: Props<TValue>) {
 	function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
-		const value = event.target.value;
+		const value = event.target.value as TValue;
 		onChange(value);
 	}
 
