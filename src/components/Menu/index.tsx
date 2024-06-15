@@ -20,12 +20,9 @@ export default function Menu() {
 	// Sounds
 	const { play: playStartGameSound } = useSound("/sounds/start-game.mp3");
 	const { play: playMenuNavigateSound } = useSound("/sounds/menu-navigate.mp3");
-	const { play: playMenuMusic, stop: stopMenuMusic } = useSound("/sounds/menu-music.mp3");
-
-	useEffect(() => {
-		playMenuMusic();
-		return () => stopMenuMusic();
-	}, [playMenuMusic, stopMenuMusic]);
+	useSound("/sounds/menu-music.mp3", {
+		autoplay: true,
+	});
 
 	useEffect(() => {
 		if (!dialogRef.current) return;

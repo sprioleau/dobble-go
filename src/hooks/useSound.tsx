@@ -5,8 +5,22 @@ export default function useSound(src: string, options?: AudioLoadOptions) {
 	const audioPlayer = useAudioPlayer();
 
 	useEffect(() => {
-		audioPlayer.load(src, { html5: true, ...options });
-		return () => audioPlayer.cleanup();
+		function handleUserInteraction() {
+			audioPlayer.load(src, {
+				html5: true,
+				onload: () => {
+					window.removeEventListener("click", handleUserInteraction);
+				},
+				...options,
+			});
+		}
+
+		window.addEventListener("click", handleUserInteraction);
+
+		return () => {
+			window.removeEventListener("click", handleUserInteraction);
+			audioPlayer.cleanup();
+		};
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 

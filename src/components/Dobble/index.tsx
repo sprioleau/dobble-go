@@ -28,6 +28,7 @@ export default function Dobble({ dobble: { deck: initialDeck, symbolsPerCard }, 
 	const [deck, setDeck] = useState<ReturnType<typeof generateDobble>["deck"]>(initialDeck);
 	const [card1Index, setCard1Index] = useState(0);
 	const [card2Index, setCard2Index] = useState(1);
+	const [userPrefersSoundOn, setUserPrefersSoundOn] = useState(true);
 	const [score, setScore] = useState(0);
 	const [shouldRotateCards, setShouldRotateCards] = useState(true);
 	const [gameMode, setGameMode] = useState<GameMode>("PLAYING");
@@ -40,7 +41,7 @@ export default function Dobble({ dobble: { deck: initialDeck, symbolsPerCard }, 
 	} = useSound("/sounds/game-music.mp3", {
 		initialVolume: 0.5,
 		loop: true,
-		autoplay: false,
+		autoplay: userPrefersSoundOn,
 	});
 	const {
 		play: playGameEndedMusic,
@@ -71,17 +72,20 @@ export default function Dobble({ dobble: { deck: initialDeck, symbolsPerCard }, 
 	useEffect(() => {
 		if (gameMode === "PLAYING") {
 			// TODO: Track when player selects mute music button and use their preference
-			if (!isGameMusicPlaying && isGameEndedMusicPlaying) playGameMusic();
+			if (!isGameMusicPlaying && userPrefersSoundOn) playGameMusic();
+			if (isGameEndedMusicPlaying) stopGameEndedMusic();
 			if (!isTimerRunning) startTimer();
 		}
 
 		if (gameMode === "PAUSED") {
-			if (!isGameMusicPlaying && isGameEndedMusicPlaying) playGameMusic();
+			if (isGameMusicPlaying) stopGameMusic();
+			if (!isGameMusicPlaying && userPrefersSoundOn) playGameMusic();
 			if (isTimerRunning) pauseTimer();
 		}
 
 		if (gameMode === "ENDED") {
-			if (isGameMusicPlaying && !isGameEndedMusicPlaying) playGameEndedMusic();
+			if (isGameMusicPlaying) stopGameMusic();
+			if (!isGameEndedMusicPlaying && userPrefersSoundOn) playGameEndedMusic();
 			if (isTimerRunning) pauseTimer();
 		}
 
@@ -114,7 +118,7 @@ export default function Dobble({ dobble: { deck: initialDeck, symbolsPerCard }, 
 		const [correctImageIndex] = getDuplicateItems([...deck[card1Index], ...deck[card2Index]]);
 
 		if (selectedImageIndex !== correctImageIndex) {
-			playIncorrectSound();
+			if (userPrefersSoundOn) playIncorrectSound();
 
 			if (GAME_OPTIONS.DIFFICULTY[difficulty].PENALIZE_INCORRECT) {
 				setScore((s) => Math.max(0, s - 1));
@@ -125,7 +129,7 @@ export default function Dobble({ dobble: { deck: initialDeck, symbolsPerCard }, 
 
 		// If past this point, the user has found a match
 		setScore((s) => s + 1);
-		playCorrectSound();
+		if (userPrefersSoundOn) playCorrectSound();
 
 		// Once match is found, get rid of the card that was clicked
 		setDeck((previousDeck) => {
@@ -156,7 +160,7 @@ export default function Dobble({ dobble: { deck: initialDeck, symbolsPerCard }, 
 		setDeck(generateDobble({ symbolsPerCard }).deck);
 		setGameMode("PLAYING");
 		stopGameEndedMusic();
-		playGameMusic();
+		if (userPrefersSoundOn) playGameMusic();
 		setScore(0);
 	}
 
@@ -169,15 +173,21 @@ export default function Dobble({ dobble: { deck: initialDeck, symbolsPerCard }, 
 			// Mute all music
 			stopGameMusic();
 			stopGameEndedMusic();
+			setUserPrefersSoundOn(false);
 			return;
-		}
+		} else {
+			// Unmute all music
+			setUserPrefersSoundOn(true);
 
-		if (!isGameMusicPlaying && gameMode === "PLAYING") {
-			playGameMusic();
-		}
+			if (!isGameMusicPlaying && gameMode === "PLAYING") {
+				playGameMusic();
+				return;
+			}
 
-		if (!isGameEndedMusicPlaying && gameMode === "ENDED") {
-			playGameEndedMusic();
+			if (!isGameEndedMusicPlaying && gameMode === "ENDED") {
+				playGameEndedMusic();
+				return;
+			}
 		}
 	}
 
