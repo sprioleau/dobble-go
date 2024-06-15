@@ -10,7 +10,7 @@ const INTRINSIC_DIMENSIONS = {
 	HEIGHT: 254,
 };
 
-export default function Logo({ width = 514, className }: Props) {
+export default function Logo({ width = INTRINSIC_DIMENSIONS.WIDTH, className }: Props) {
 	const intrinsicAspectRatio = INTRINSIC_DIMENSIONS.WIDTH / INTRINSIC_DIMENSIONS.HEIGHT;
 
 	return (
