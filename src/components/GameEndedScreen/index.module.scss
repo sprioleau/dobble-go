@@ -5,3 +5,35 @@
 	justify-content: center;
 	gap: 1em;
 }
+
+.name-form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 2rem;
+}
+
+.name-input {
+	appearance: none;
+	color: var(--color-black);
+	background-color: var(--color-white);
+	border: var(--border-width) solid var(--color-black);
+	border-radius: 0.5rem;
+	width: 10ch;
+	padding: 0.5rem;
+	font-size: 2.5rem;
+	text-align: center;
+	box-shadow: var(--double-drop-shadow);
+	font-family: inherit;
+	text-transform: uppercase;
+	outline: var(--border-width) solid transparent;
+	outline-offset: calc(2 * var(--border-width));
+
+	&::placeholder {
+		color: var(--color-black-25);
+	}
+
+	&:focus {
+		outline-color: var(--color-blue);
+	}
+}

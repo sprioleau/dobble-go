@@ -225,7 +225,7 @@ export default function Dobble({ dobble: { deck: initialDeck, symbolsPerCard }, 
 			{gameMode === "PAUSED" && <OutlinedText>Paused</OutlinedText>}
 			{gameMode === "ENDED" && (
 				<GameEndedScreen
-					shouldDisplayTimeExpiredMessage={totalSeconds <= 0}
+					hasWon={totalSeconds > 0}
 					restart={handleRestartGame}
 				/>
 			)}
