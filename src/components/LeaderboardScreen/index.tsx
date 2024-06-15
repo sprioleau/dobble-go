@@ -1,10 +1,15 @@
 "use client";
 
 import LeaderboardTable from "@/components/LeaderboardTable";
+import { Score } from "@/db/types";
 import useSound from "@/hooks/useSound";
 import { useEffect } from "react";
 
-export default function LeaderboardScreen() {
+type Props = {
+	leaderboardEntries: Score[];
+};
+
+export default function LeaderboardScreen({ leaderboardEntries }: Props) {
 	const { play: playMenuMusic, stop: stopMenuMusic } = useSound("/sounds/menu-music.mp3");
 
 	useEffect(() => {
@@ -14,7 +19,7 @@ export default function LeaderboardScreen() {
 
 	return (
 		<section>
-			<LeaderboardTable />
+			<LeaderboardTable leaderboardEntries={leaderboardEntries} />
 		</section>
 	);
 }

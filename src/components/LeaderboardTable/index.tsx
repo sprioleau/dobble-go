@@ -1,38 +1,43 @@
 import styles from "./index.module.scss";
 
 import OutlinedText from "@/components/OutlinedText";
+import { Score } from "@/db/types";
 
-const scores = [
-	{ name: "Kira", points: 129 },
-	{ name: "Femi", points: 119 },
-	{ name: "Ada", points: 88 },
-];
+type Props = {
+	leaderboardEntries: Score[];
+};
 
-export default function LeaderboardTable() {
+export default function LeaderboardTable({ leaderboardEntries }: Props) {
 	return (
-		<table className={styles["table"]}>
-			<thead>
-				<tr>
-					<th>
-						<OutlinedText>Name</OutlinedText>
-					</th>
-					<th>
-						<OutlinedText>Score</OutlinedText>
-					</th>
-				</tr>
-			</thead>
-			<tbody>
-				{scores.map(({ name, points }, index) => (
-					<tr key={name}>
-						<td>
-							<OutlinedText>{`${index + 1}. ${name}`}</OutlinedText>
-						</td>
-						<td>
-							<OutlinedText>{points}</OutlinedText>
-						</td>
-					</tr>
-				))}
-			</tbody>
-		</table>
+		<>
+			{leaderboardEntries.length === 0 ? (
+				<OutlinedText>No entries</OutlinedText>
+			) : (
+				<table className={styles["table"]}>
+					<thead>
+						<tr>
+							<th>
+								<OutlinedText>Name</OutlinedText>
+							</th>
+							<th>
+								<OutlinedText>Score</OutlinedText>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						{leaderboardEntries.map(({ name, score, id }, index) => (
+							<tr key={id}>
+								<td>
+									<OutlinedText>{`${index + 1}. ${name}`}</OutlinedText>
+								</td>
+								<td>
+									<OutlinedText>{score}</OutlinedText>
+								</td>
+							</tr>
+						))}
+					</tbody>
+				</table>
+			)}
+		</>
 	);
 }
