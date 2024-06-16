@@ -8,6 +8,8 @@ import { scores } from "@/db/schema";
 import { desc } from "drizzle-orm";
 import Link from "next/link";
 
+export const dynamic = "force-dynamic";
+
 export default async function LeaderboardPage() {
 	const leaderboardEntries = await db.select().from(scores).orderBy(desc(scores.score)).limit(10);
 
