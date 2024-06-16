@@ -1,3 +1,3 @@
-import { score } from "./schema";
+import { scores } from "./schema";
 
-export type Score = typeof score.$inferSelect;
+export type Score = typeof scores.$inferSelect;
