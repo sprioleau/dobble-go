@@ -1,9 +1,8 @@
 import styles from "./index.module.scss";
 
+import { createScore } from "@/actions";
 import Button from "../Button";
 import OutlinedText from "../OutlinedText";
-import { createScore } from "@/actions";
-import Link from "next/link";
 
 type Props = {
 	hasWon: boolean;
@@ -15,7 +14,8 @@ export default function GameEndedScreen({ hasWon, score, restart }: Props) {
 	return (
 		<div className={styles["game-ended-screen"]}>
 			<p>
-				<OutlinedText>{!hasWon ? "Time's up!" : "Finished!"}</OutlinedText>
+				{/* TODO: Make save name form a modal dialog? */}
+				<OutlinedText>{!hasWon ? "Time's up!" : `You win! Score: ${score}`}</OutlinedText>
 			</p>
 			{hasWon && (
 				<form
@@ -25,7 +25,7 @@ export default function GameEndedScreen({ hasWon, score, restart }: Props) {
 					<input
 						type="text"
 						name="name"
-						placeholder="Your name"
+						placeholder="Name"
 						className={styles["name-input"]}
 						minLength={3}
 						maxLength={8}
@@ -41,9 +41,7 @@ export default function GameEndedScreen({ hasWon, score, restart }: Props) {
 					<Button type="submit">Save</Button>
 				</form>
 			)}
-			<Link href="/leaderboard">Leaderboard</Link>
-
-			{!hasWon && <Button onClick={restart}>Restart</Button>}
+			<Button onClick={restart}>Restart</Button>
 		</div>
 	);
 }
