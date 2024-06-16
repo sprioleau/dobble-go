@@ -8,6 +8,7 @@ export default function useSound(src: string, options?: AudioLoadOptions) {
 		function handleUserInteraction() {
 			audioPlayer.load(src, {
 				html5: true,
+				initialVolume: 0.5,
 				onload: () => {
 					window.removeEventListener("click", handleUserInteraction);
 				},
