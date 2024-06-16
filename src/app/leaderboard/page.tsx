@@ -4,12 +4,12 @@ import LeaderboardScreen from "@/components/LeaderboardScreen";
 import Logo from "@/components/Logo";
 import OutlinedText from "@/components/OutlinedText";
 import { db } from "@/db";
-import { score } from "@/db/schema";
+import { scores } from "@/db/schema";
 import { desc } from "drizzle-orm";
 import Link from "next/link";
 
 export default async function LeaderboardPage() {
-	const leaderboardEntries = await db.select().from(score).orderBy(desc(score.score)).limit(10);
+	const leaderboardEntries = await db.select().from(scores).orderBy(desc(scores.score)).limit(10);
 
 	return (
 		<main

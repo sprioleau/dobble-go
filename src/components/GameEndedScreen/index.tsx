@@ -2,30 +2,16 @@ import styles from "./index.module.scss";
 
 import Button from "../Button";
 import OutlinedText from "../OutlinedText";
-import { useState } from "react";
+import { createScore } from "@/actions";
+import Link from "next/link";
 
 type Props = {
 	hasWon: boolean;
+	score: number;
 	restart: () => void;
 };
 
-export default function GameEndedScreen({ hasWon, restart }: Props) {
-	const [nameLetters, setNameLetters] = useState("");
-
-	function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
-		setNameLetters(event.target.value);
-	}
-
-	function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-		event.preventDefault();
-		const formData = new FormData(event.currentTarget);
-		const name = formData.get("name") as string;
-		console.log(name);
-
-		// TODO: Implement server action
-		// call server action
-	}
-
+export default function GameEndedScreen({ hasWon, score, restart }: Props) {
 	return (
 		<div className={styles["game-ended-screen"]}>
 			<p>
@@ -33,22 +19,30 @@ export default function GameEndedScreen({ hasWon, restart }: Props) {
 			</p>
 			{hasWon && (
 				<form
+					action={createScore}
 					className={styles["name-form"]}
-					onSubmit={handleSubmit}
 				>
 					<input
 						type="text"
 						name="name"
-						onChange={handleChange}
 						placeholder="Your name"
-						value={nameLetters}
 						className={styles["name-input"]}
 						minLength={3}
 						maxLength={8}
 					/>
+					<input
+						type="text"
+						name="score"
+						aria-hidden
+						hidden
+						value={score}
+						readOnly
+					/>
 					<Button type="submit">Save</Button>
 				</form>
 			)}
+			<Link href="/leaderboard">Leaderboard</Link>
+
 			{!hasWon && <Button onClick={restart}>Restart</Button>}
 		</div>
 	);

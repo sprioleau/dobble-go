@@ -226,6 +226,7 @@ export default function Dobble({ dobble: { deck: initialDeck, symbolsPerCard }, 
 			{gameMode === "ENDED" && (
 				<GameEndedScreen
 					hasWon={totalSeconds > 0}
+					score={score}
 					restart={handleRestartGame}
 				/>
 			)}

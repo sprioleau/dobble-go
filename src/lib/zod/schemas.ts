@@ -2,8 +2,8 @@ import { z } from "zod";
 
 export const scoreSchema = z.object({
 	id: z.number(),
-	name: z.string().trim().min(1, { message: "Name is required." }),
-	score: z.string().trim().min(1, { message: "Score is required." }),
+	name: z.string().trim().min(3, { message: "Name must be at least 3 characters." }),
+	score: z.coerce.number(),
 	createdAt: z.date(),
 });
 
