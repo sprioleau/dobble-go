@@ -11,6 +11,15 @@ type Props = {
 };
 
 export default function GameEndedScreen({ hasWon, score, restart }: Props) {
+	async function handleCreateScroeAction(formData: FormData) {
+		try {
+			await createScore(formData);
+			restart();
+		} catch (error) {
+			console.log("There was a problem saving your score.");
+		}
+	}
+
 	return (
 		<div className={styles["game-ended-screen"]}>
 			<p>
@@ -19,7 +28,7 @@ export default function GameEndedScreen({ hasWon, score, restart }: Props) {
 			</p>
 			{hasWon && (
 				<form
-					action={createScore}
+					action={handleCreateScroeAction}
 					className={styles["name-form"]}
 				>
 					<input
@@ -38,7 +47,7 @@ export default function GameEndedScreen({ hasWon, score, restart }: Props) {
 						value={score}
 						readOnly
 					/>
-					<Button type="submit">Save</Button>
+					<Button type="submit">Save & Restart</Button>
 				</form>
 			)}
 			<Button onClick={restart}>Restart</Button>
