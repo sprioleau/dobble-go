@@ -3,7 +3,7 @@ import { Metadata, Viewport } from "next";
 const fullName = "San'Quan Prioleau";
 const title = "Dobble Go - Find Your Match";
 const description = "A shape recognition game for the web based on the popular game Dobble.";
-const baseUrl = "https://dobblego.vercel.app";
+const baseUrl = "https://dobblego.spriolau.dev";
 const keywords = [
 	fullName,
 	"dobble",
