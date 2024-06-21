@@ -3,9 +3,9 @@ import { scores } from "@/db/schema";
 
 // prettier-ignore
 const seededScores = [
-  { id: 1, name: "Kira", score: 126, },
-  { id: 2, name: "Femi", score: 119, },
-  { id: 3, name: "Ada" , score: 88 , },
+  { id: 1, name: "Kira", score: 44, },
+  { id: 2, name: "Femi", score: 38, },
+  { id: 3, name: "Ada" , score: 36 , },
 ];
 
 async function seed() {
