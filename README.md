@@ -59,12 +59,12 @@ Give a ⭐️ if you like this project!
 
 <!-- Author Details -->
 
-[github-url]: https://github.com/spriolau "San'Quan Prioleau on Github"
+[github-url]: https://github.com/sprioleau "San'Quan Prioleau on Github"
 [website]: https://sprioleau.dev "San'Quan Prioleau's personal website"
 [linkedin]: https://www.linkedin.com/in/sanquanprioleau/
 
 <!-- Project Details -->
 
-[deployed-url]: https://dobblego.spriolau.dev
-[social-card-url]: https://dobblego.spriolau.dev/images/social-card.png "Social Card"
-[screenshot-url]: https://dobblego.spriolau.dev/images/screenshot.png "Screenshot"
+[deployed-url]: https://dobblego.sprioleau.dev
+[social-card-url]: https://dobblego.sprioleau.dev/images/social-card.png "Social Card"
+[screenshot-url]: https://dobblego.sprioleau.dev/images/screenshot.png "Screenshot"
