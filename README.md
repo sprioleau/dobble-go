@@ -1,42 +1,70 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+![Social Card][social-card-url]
 
-## Getting Started
+# Dobble Go
 
-First, run the development server:
+A shape recognition game for the web based on the popular game [Dobble](https://www.dobblegame.com/en/games/) (aka [Spot it](https://www.spotitgame.com/)).
+
+## 🔗 Links
+
+- 🚀 Deployed at [dobblego.sprioleau.dev][deployed-url]
+
+## Screenshots
+
+![Screenshot][screenshot-url]
+
+## 💿 Installation
+
+Clone this repo
+
+```bash
+git clone https://github.com/sprioleau/dobble-go.git
+```
+
+Install via npm
+
+```bash
+npm install
+```
+
+Run developemnt server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠 Built With
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Technology | Used For                      |
+| :--------- | :---------------------------- |
+| TypeScript | -                             |
+| Next.js    | Full-stack development        |
+| Vercel     | Hosting                       |
+| Drizzle    | Object-relational mapping     |
+| Turso      | Hosted SQLite database        |
+| Zod        | Schema parsing and validation |
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## 👨🏾‍💻 Author
 
-## Learn More
+**San'Quan Prioleau**
 
-To learn more about Next.js, take a look at the following resources:
+- [Profile][github-url]
+- [Website][website]
+- [LinkedIn][linkedin]
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🎗 Support
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Issues, and feature requests are welcome!
 
-## Deploy on Vercel
+Give a ⭐️ if you like this project!
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+<!-- Author Details -->
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+[github-url]: https://github.com/spriolau "San'Quan Prioleau on Github"
+[website]: https://sprioleau.dev "San'Quan Prioleau's personal website"
+[linkedin]: https://www.linkedin.com/in/sanquanprioleau/
 
----
+<!-- Project Details -->
 
-Sounds
-
-Sound Effects from Pixabay
+[deployed-url]: https://dobblego.spriolau.dev
+[social-card-url]: https://dobblego.spriolau.dev/images/social-card.png "Social Card"
+[screenshot-url]: https://dobblego.spriolau.dev/images/screenshot.png "Screenshot"
